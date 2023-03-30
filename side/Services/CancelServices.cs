@@ -16,21 +16,106 @@ namespace side.Services
     internal class CancelServices : ICancelServices
     {
         CancelDAO cancelDAO = new CancelDAO();
-        public int UpdateWallet_WithdrawItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
+        public SQL_ExcuteResult UpdateWallet_WithdrawItem(int memeberId, string date)
         {
-            var aa = GetTimeRange(InputDateTimeFormat(dataSet_CancelApplyVaule.submissionTime));
+            SQL_ExcuteResult result = new SQL_ExcuteResult();
+            var aa = GetTimeRange(InputDateTimeFormat(date));
+            try
+            {
+                int step = cancelDAO.UpdateWallet_WithdrawItem(memeberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
-            return cancelDAO.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
-        }
-        public int UpdateWallet_WalletItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
-        {
-            return cancelDAO.UpdateWallet_WalletItem(dataSet_CancelApplyVaule.memberId, dataSet_CancelApplyVaule.withdrawData.value);
-        }
-        public int InsertWallet_WalletRecordItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
-        {
-            var aa = GetTimeRange(InputDateTimeFormat(dataSet_CancelApplyVaule.submissionTime));
+                if (step == 1)
+                {
+                    result.isSuccess = true;
+                    result.FeedbackMsg = "更新成功 提領紀錄 Wallet_WithdrawItem";
+                    result.ReturnDataJson = "";
+                }
+                else
+                {
+                    result.isSuccess = false;
+                    result.FeedbackMsg = "更新失敗 找不到資料 Wallet_WithdrawItem";
+                    result.ReturnDataJson = "";
+                }
 
-            return cancelDAO.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                return result;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+
+                result.isSuccess = false;
+                result.FeedbackMsg = "更新失敗 提領紀錄 Wallet_WithdrawItem";
+                result.ReturnDataJson = "";
+
+                return result;
+            }
+        }
+        public SQL_ExcuteResult UpdateWallet_WalletItem(int memberId, string value)
+        {
+            SQL_ExcuteResult result = new SQL_ExcuteResult();
+            try
+            {
+                int step = cancelDAO.UpdateWallet_WalletItem(memberId, value);
+
+                if (step == 1)
+                {
+                    result.isSuccess = true;
+                    result.FeedbackMsg = "更新成功 原始金額 Wallet_WalletItem";
+                    result.ReturnDataJson = "";
+                }
+                else
+                {
+                    result.isSuccess = false;
+                    result.FeedbackMsg = "更新失敗 找不到資料 Wallet_WalletItem";
+                    result.ReturnDataJson = "";
+                }
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+
+                result.isSuccess = false;
+                result.FeedbackMsg = "更新失敗 原始金額 Wallet_WithdrawItem";
+                result.ReturnDataJson = "";
+
+                return result;
+            }
+        }
+        public SQL_ExcuteResult InsertWallet_WalletRecordItem(int memeberId, string value, string date)
+        {
+            var aa = GetTimeRange(InputDateTimeFormat(date));
+            SQL_ExcuteResult result = new SQL_ExcuteResult();
+            try
+            {
+                int step = cancelDAO.InsertWallet_WalletRecordItem(memeberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                if (step == 1)
+                {
+                    result.isSuccess = true;
+                    result.FeedbackMsg = "新增成功 提領紀錄 Wallet_WalletRecordItem";
+                    result.ReturnDataJson = "";
+                }
+                else
+                {
+                    result.isSuccess = false;
+                    result.FeedbackMsg = "新增失敗 找不到資料 Wallet_WalletRecordItem";
+                    result.ReturnDataJson = "";
+                }
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+
+                result.isSuccess = false;
+                result.FeedbackMsg = "新增失敗 歷史紀錄 Wallet_WalletRecordItem";
+                result.ReturnDataJson = "";
+
+                return result;
+            }
         }
         private DateTime InputDateTimeFormat(string date)
         {

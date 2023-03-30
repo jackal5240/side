@@ -14,17 +14,20 @@ namespace side.Controller
     {
         internal SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
         {
+            SQL_ExcuteResult result;
             CancelServices cancelServices = new CancelServices();
-            
-            int step1 = cancelServices.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule);
 
-            if (step1 == 1)
+            // 更新 提領紀錄
+            result = cancelServices.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule.memberId, dataSet_CancelApplyVaule.submissionTime);
+
+            if (result.isSuccess)
             {
-                cancelServices.UpdateWallet_WalletItem(dataSet_CancelApplyVaule);
-                cancelServices.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule);
+                // 更新 原始金額
+                result = cancelServices.UpdateWallet_WalletItem(dataSet_CancelApplyVaule.memberId, dataSet_CancelApplyVaule.withdrawData.value);
+                // 新增 歷史紀錄
+                result = cancelServices.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule.memberId, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime);
             }
             
-            SQL_ExcuteResult result = new SQL_ExcuteResult();
             return result;
         }
         

@@ -49,6 +49,8 @@ namespace side
                 },
                 submissionTime = "2023-03-27 16:11:51.340"
             };
+            memberIdTextBox.Text = Convert.ToString(dataSet_WithdrawDetail.memberId);
+            amountTextBox.Text = dataSet_WithdrawDetail.withdrawData.value;
         }
         private void cancelButton_Click(object sender, EventArgs e)
         {

@@ -16,25 +16,25 @@ namespace side.Services
     internal class CancelServices : ICancelServices
     {
         CancelDAO cancelDAO = new CancelDAO();
-        public SQL_ExcuteResult UpdateWallet_WithdrawItem(int memeberId, string date)
+        public SQL_ExcuteResult UpdateWallet_WithdrawItem(int memberId, string date)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             var aa = GetTimeRange(InputDateTimeFormat(date));
             try
             {
-                int step = cancelDAO.UpdateWallet_WithdrawItem(memeberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                int step = cancelDAO.UpdateWallet_WithdrawItem(memberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
                 if (step == 1)
                 {
                     result.isSuccess = true;
-                    result.FeedbackMsg = "更新成功 提領紀錄 Wallet_WithdrawItem";
-                    result.ReturnDataJson = "";
+                    result.FeedbackMsg = "Step1 更新成功 提領紀錄 Wallet_WithdrawItem";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
                 }
                 else
                 {
                     result.isSuccess = false;
-                    result.FeedbackMsg = "更新失敗 找不到資料 Wallet_WithdrawItem";
-                    result.ReturnDataJson = "";
+                    result.FeedbackMsg = "Step1 更新失敗 找不到資料 Wallet_WithdrawItem";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelServices.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
                 }
 
                 return result;
@@ -44,8 +44,8 @@ namespace side.Services
                 MessageBox.Show(e.Message);
 
                 result.isSuccess = false;
-                result.FeedbackMsg = "更新失敗 提領紀錄 Wallet_WithdrawItem";
-                result.ReturnDataJson = "";
+                result.FeedbackMsg = "Step1 更新失敗 提領紀錄 Wallet_WithdrawItem";
+                result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelServices.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
 
                 return result;
             }
@@ -60,14 +60,14 @@ namespace side.Services
                 if (step == 1)
                 {
                     result.isSuccess = true;
-                    result.FeedbackMsg = "更新成功 原始金額 Wallet_WalletItem";
-                    result.ReturnDataJson = "";
+                    result.FeedbackMsg = "Step2 更新成功 原始金額 Wallet_WalletItem";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"value\":\"" + value + "\"}";
                 }
                 else
                 {
                     result.isSuccess = false;
-                    result.FeedbackMsg = "更新失敗 找不到資料 Wallet_WalletItem";
-                    result.ReturnDataJson = "";
+                    result.FeedbackMsg = "Step2 更新失敗 找不到資料 Wallet_WalletItem";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelServices.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"value\":\"" + value + "\"}";
                 }
 
                 return result;
@@ -77,31 +77,31 @@ namespace side.Services
                 MessageBox.Show(e.Message);
 
                 result.isSuccess = false;
-                result.FeedbackMsg = "更新失敗 原始金額 Wallet_WithdrawItem";
-                result.ReturnDataJson = "";
+                result.FeedbackMsg = "Step2 更新失敗 原始金額 Wallet_WithdrawItem";
+                result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelServices.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"value\":\"" + value + "\"}";
 
                 return result;
             }
         }
-        public SQL_ExcuteResult InsertWallet_WalletRecordItem(int memeberId, string value, string date)
+        public SQL_ExcuteResult InsertWallet_WalletRecordItem(int memberId, string value, string date)
         {
             var aa = GetTimeRange(InputDateTimeFormat(date));
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             try
             {
-                int step = cancelDAO.InsertWallet_WalletRecordItem(memeberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                int step = cancelDAO.InsertWallet_WalletRecordItem(memberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
                 if (step == 1)
                 {
                     result.isSuccess = true;
-                    result.FeedbackMsg = "新增成功 提領紀錄 Wallet_WalletRecordItem";
-                    result.ReturnDataJson = "";
+                    result.FeedbackMsg = "Step3 新增成功 提領紀錄 Wallet_WalletRecordItem";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
                 }
                 else
                 {
                     result.isSuccess = false;
-                    result.FeedbackMsg = "新增失敗 找不到資料 Wallet_WalletRecordItem";
-                    result.ReturnDataJson = "";
+                    result.FeedbackMsg = "Step3 新增失敗 找不到資料 Wallet_WalletRecordItem";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelServices.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
                 }
 
                 return result;
@@ -111,8 +111,8 @@ namespace side.Services
                 MessageBox.Show(e.Message);
 
                 result.isSuccess = false;
-                result.FeedbackMsg = "新增失敗 歷史紀錄 Wallet_WalletRecordItem";
-                result.ReturnDataJson = "";
+                result.FeedbackMsg = "Step3 新增失敗 歷史紀錄 Wallet_WalletRecordItem";
+                result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelServices.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
 
                 return result;
             }

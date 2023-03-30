@@ -21,13 +21,16 @@ namespace side.DAO
             {
                 // 取消提領 [Wallet_WalletRecordItem]
                 SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WalletRecordItem " +
-                    "set Reason = '取消提領', Old = '', Increment = '', New = ''" +
-                    ", Editor = 'Leo', UpdateTime = " + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.sss") +
-                    "where Id = @ID AND Increment = @Increment;", conn);
+                    "set Reason = '取消提領', Old = New" +
+                    ", Increment = CASE WHEN Increment > 0 THEN Increment * -1 ELSE Increment END" +
+                    ", New = Old" +
+                    ", Editor = 'Leo'" +
+                    ", UpdateTime = GETDATE()" +
+                    "where Id = @ID ;", conn);
 
                 // 將資料塞入 SQL 指令中
                 cmd.Parameters.AddWithValue("@ID", dataSet_CancelApplyVaule.id);
-                cmd.Parameters.AddWithValue("@Increment", dataSet_CancelApplyVaule.withdrawData.value);
+                // cmd.Parameters.AddWithValue("@Increment", dataSet_CancelApplyVaule.withdrawData.value);
 
                 // 開啟資料庫連線，並執行 SQL 指令
                 conn.Open();
@@ -41,13 +44,11 @@ namespace side.DAO
             {
                 // 更新狀態 [Wallet_WithdrawItem]
                 SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WithdrawItem " +
-                    "set Type = '取消提領', State = '已處理', UpdateTime = " + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.sss") +
-                    "where Id = @ID AND Value = @Value AND CreateTime = @CreateTime ;", conn);
+                    "set Type = '取消提領', State = '已處理', UpdateTime = GETDATE()" +
+                    "where Id = @ID ;", conn);
 
                 // 將資料塞入 SQL 指令中
                 cmd.Parameters.AddWithValue("@ID", dataSet_CancelApplyVaule.id);
-                cmd.Parameters.AddWithValue("@Value", dataSet_CancelApplyVaule.withdrawData.value);
-                cmd.Parameters.AddWithValue("@CreateTime", dataSet_CancelApplyVaule.submissionTime);
 
                 // 開啟資料庫連線，並執行 SQL 指令
                 conn.Open();

@@ -19,11 +19,14 @@ namespace side.Services
         public SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
-
+            cancelDAO.CancelWallet_WalletRecordItem(dataSet_CancelApplyVaule);
+            cancelDAO.Wallet_WithdrawItem(dataSet_CancelApplyVaule);
+            return result;
+            /*
             try
             {
-                cancelDAO.CancelWallet_WalletRecordItem(dataSet_CancelApplyVaule);
-                cancelDAO.Wallet_WithdrawItem(dataSet_CancelApplyVaule);
+                
+                
                 return result;
             }
             catch (Exception ex)
@@ -36,6 +39,7 @@ namespace side.Services
 
                 return result;
             }
+            */
         }
     }
 }

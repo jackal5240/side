@@ -15,7 +15,18 @@ namespace side.Controller
         internal SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
         {
             CancelServices cancelServices = new CancelServices();
-            return cancelServices.CancelApplyValue(dataSet_CancelApplyVaule);
+            
+            int step1 = cancelServices.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule);
+
+            if (step1 == 1)
+            {
+                cancelServices.UpdateWallet_WalletItem(dataSet_CancelApplyVaule);
+                cancelServices.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule);
+            }
+            
+            SQL_ExcuteResult result = new SQL_ExcuteResult();
+            return result;
         }
+        
     }
 }

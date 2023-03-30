@@ -10,6 +10,8 @@ namespace side.ServicesImpl
 {
     internal interface ICancelServices
     {
-        SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule);
+        int UpdateWallet_WithdrawItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule);
+        int UpdateWallet_WalletItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule);
+        int InsertWallet_WalletRecordItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule);
     }
 }

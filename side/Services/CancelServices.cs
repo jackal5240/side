@@ -16,23 +16,30 @@ namespace side.Services
     internal class CancelServices : ICancelServices
     {
         CancelDAO cancelDAO = new CancelDAO();
-        public SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
+        public int UpdateWallet_WithdrawItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
         {
-            SQL_ExcuteResult result = new SQL_ExcuteResult();
+            var aa = GetTimeRange(InputDateTimeFormat(dataSet_CancelApplyVaule.submissionTime));
 
-            DateTime input = new DateTime(Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(0, 4))
-                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(5, 2))
-                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(8, 2))
-                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(11, 2))
-                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(14, 2))
-                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(17, 2)));
-            var aa = GetTimeRange(input);
-            // Console.WriteLine($"StartTime: {aa.startTime}, EndTime: {aa.endTime}");
+            return cancelDAO.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
+        public int UpdateWallet_WalletItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
+        {
+            return cancelDAO.UpdateWallet_WalletItem(dataSet_CancelApplyVaule.memberId, dataSet_CancelApplyVaule.withdrawData.value);
+        }
+        public int InsertWallet_WalletRecordItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
+        {
+            var aa = GetTimeRange(InputDateTimeFormat(dataSet_CancelApplyVaule.submissionTime));
 
-            cancelDAO.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
-            cancelDAO.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
-            
-            return result;
+            return cancelDAO.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
+        private DateTime InputDateTimeFormat(string date)
+        {
+            return new DateTime(Convert.ToInt32(date.Substring(0, 4))
+               , Convert.ToInt32(date.Substring(5, 2))
+               , Convert.ToInt32(date.Substring(8, 2))
+               , Convert.ToInt32(date.Substring(11, 2))
+               , Convert.ToInt32(date.Substring(14, 2))
+               , Convert.ToInt32(date.Substring(17, 2)));
         }
         public static (DateTime startTime, DateTime endTime) GetTimeRange(DateTime time)
         {
@@ -41,6 +48,5 @@ namespace side.Services
 
             return (startTime, endTime);
         }
-
     }
 }

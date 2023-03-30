@@ -36,6 +36,24 @@ namespace side.DAO
                 return cmd.ExecuteNonQuery();
             }
         }
+        internal int UpdateWallet_WalletItem(int memberId, string value)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                // 更新狀態 [Wallet_WithdrawItem]
+                SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WalletItem " +
+                    "set Value = Value + CAST(" + Convert.ToInt32(value) + " AS DECIMAL(18, 2))" +
+                    ", UpdateTime = GETDATE() " +
+                    "where memberId = @ID" + 
+                    ";", conn);
+                // 將資料塞入 SQL 指令中
+                cmd.Parameters.AddWithValue("@ID", memberId);
+
+                // 開啟資料庫連線，並執行 SQL 指令
+                conn.Open();
+                return cmd.ExecuteNonQuery();
+            }
+        }
         public int InsertWallet_WalletRecordItem(DataSet_CancelApplyValue dataSet_CancelApplyVaule, string startTime, string endTime)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -43,7 +61,8 @@ namespace side.DAO
                 // 記錄一筆 取消提領 [Wallet_WalletRecordItem]
                 SqlCommand cmd = new SqlCommand("INSERT INTO bu_test.dbo.Wallet_WalletRecordItem " +
                     "(WalletId, Id, Reason, Old, Increment, New, Remark, IsHide, CreateTime, Editor, UpdateTime)" +
-                    " select MemberId, (select MAX(Id) + 1 from bu_test.dbo.Wallet_WalletRecordItem), Type," + dataSet_CancelApplyVaule.withdrawData.value + ", Value, '-999'" +
+                    " select MemberId, (select MAX(Id) + 1 from bu_test.dbo.Wallet_WalletRecordItem), Type," +
+                    dataSet_CancelApplyVaule.withdrawData.value + ", Value, '-999'" +
                     ", Remark ,'0' ,GETDATE() ,'LEO' ,UpdateTime " +
                     "from bu_test.dbo.Wallet_WithdrawItem " +
                     "where MemberId = @ID AND State = '已處理' AND Type = '取消提領' " +

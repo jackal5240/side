@@ -68,7 +68,6 @@
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 3;
             this.label1.Text = "取消提領金額";
-            this.label1.Visible = false;
             // 
             // label2
             // 
@@ -78,7 +77,6 @@
             this.label2.Size = new System.Drawing.Size(44, 12);
             this.label2.TabIndex = 4;
             this.label2.Text = "會員 ID";
-            this.label2.Visible = false;
             // 
             // detailButton
             // 

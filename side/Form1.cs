@@ -31,7 +31,7 @@ namespace side
         {
             dataSet_WithdrawDetail = new DataSet_WithdrawDetail
             {
-                id = 2,
+                memberId = 6,
                 name = "cas1",
                 bankData = new DataSet_WithdrawDetail.BankData
                 {
@@ -47,7 +47,7 @@ namespace side
                     fee = "50",
                     available = "950"
                 },
-                submissionTime = new DateTime().ToString()
+                submissionTime = "2023-03-27 16:11:51.340"
             };
         }
         private void cancelButton_Click(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace side
         {
             DataSet_CancelApplyValue dataSet_CancelApplyVaule = new DataSet_CancelApplyValue
             {
-                id = dataSet_WithdrawDetail.id,
+                memberId = dataSet_WithdrawDetail.memberId,
                 name = dataSet_WithdrawDetail.name,
                 bankData = new DataSet_CancelApplyValue.BankData
                 {

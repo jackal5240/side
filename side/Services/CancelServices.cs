@@ -19,27 +19,28 @@ namespace side.Services
         public SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
-            cancelDAO.CancelWallet_WalletRecordItem(dataSet_CancelApplyVaule);
-            cancelDAO.Wallet_WithdrawItem(dataSet_CancelApplyVaule);
+
+            DateTime input = new DateTime(Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(0, 4))
+                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(5, 2))
+                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(8, 2))
+                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(11, 2))
+                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(14, 2))
+                , Convert.ToInt32(dataSet_CancelApplyVaule.submissionTime.Substring(17, 2)));
+            var aa = GetTimeRange(input);
+            // Console.WriteLine($"StartTime: {aa.startTime}, EndTime: {aa.endTime}");
+
+            cancelDAO.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            cancelDAO.InsertWallet_WalletRecordItem(dataSet_CancelApplyVaule, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            
             return result;
-            /*
-            try
-            {
-                
-                
-                return result;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("取消提領 [Wallet_WalletRecordItem] " + ex.Message);
-
-                result.isSuccess = false;
-                result.ReturnDataJson = null;
-                result.FeedbackMsg = ex.Message;
-
-                return result;
-            }
-            */
         }
+        public static (DateTime startTime, DateTime endTime) GetTimeRange(DateTime time)
+        {
+            var startTime = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
+            var endTime = startTime.AddSeconds(1);
+
+            return (startTime, endTime);
+        }
+
     }
 }

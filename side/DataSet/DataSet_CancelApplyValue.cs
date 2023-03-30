@@ -9,7 +9,7 @@ namespace side.DataSet
     internal class DataSet_CancelApplyValue
     {
         // 顧客 ID
-        public int id { get; set; }
+        public int memberId { get; set; }
         // 顧客姓名
         public string name { get; set; }
         // 銀行帳戶

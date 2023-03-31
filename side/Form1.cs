@@ -31,6 +31,7 @@ namespace side
         }
         private void detailButton_Click(object sender, EventArgs e)
         {
+            cancelButton.Enabled = true;
             dataSet_WithdrawDetail = new DataSet_WithdrawDetail
             {
                 memberId = 6,
@@ -76,7 +77,7 @@ namespace side
 
             result = cancelController.CancelApplyValue(dataSet_CancelApplyVaule, account, editor);
 
-            MessageBox.Show(result.FeedbackMsg);
+            MessageBox.Show(string.Format("{0}\r\nReturn Data：{1}",result.FeedbackMsg,result.ReturnDataJson));
         }
 
         private DataSet_CancelApplyValue Init()

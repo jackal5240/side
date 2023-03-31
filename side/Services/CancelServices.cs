@@ -38,7 +38,7 @@ namespace side.Services
                 {
                     result.isSuccess = true;
                     result.FeedbackMsg = "Step1 更新成功 提領紀錄 Wallet_WithdrawItem";
-                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + increment + "\",\"date\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + oldValue + "\",\"異動金額\":\"" + increment + "\",\"提交時間\":\"" + date + "\"}";
                 }
                 else if (step > 1)
                 {
@@ -77,7 +77,7 @@ namespace side.Services
                 {
                     result.isSuccess = true;
                     result.FeedbackMsg = "Step2 更新成功 原始金額 Wallet_WalletItem";
-                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"value\":\"" + value + "\"}";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\"}";
                 }
                 else if (step > 1)
                 {
@@ -117,7 +117,7 @@ namespace side.Services
                 {
                     result.isSuccess = true;
                     result.FeedbackMsg = "Step3 新增成功 提領紀錄 Wallet_WalletRecordItem";
-                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"date\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\",\"提交時間\":\"" + date + "\"}";
                 }
                 else if (step > 1)
                 {

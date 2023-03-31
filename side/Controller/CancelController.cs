@@ -37,8 +37,8 @@ namespace side.Controller
             */
             // 先索取 原始金額
             string userIdAndValue = cancelServices.getMemberShip2UserIdAndValue(account);
-            int userId = Convert.ToInt32(Regex.Split(",", userIdAndValue)[0]);
-            string value = Regex.Split(",", userIdAndValue)[1];
+            int userId = Convert.ToInt32(Regex.Split(userIdAndValue, ",")[0]);
+            string value = Regex.Split(userIdAndValue, ",")[1];
 
             if (userId != -1)
             {

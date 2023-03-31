@@ -23,13 +23,13 @@ namespace side.DAO
                 // 更新狀態 [Wallet_WithdrawItem]
                 SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WithdrawItem " +
                     "set Type = '取消提領', State = '已處理', UpdateTime = GETDATE() " +
-                    "where memberId = @ID AND State = '未處理'" +
+                    "where memberId = @memberId AND State = '未處理'" +
                     "AND ( CreateTime between '" + startTime + "'" +
                     "and '" + endTime + "' ) " +
                     ";", conn);
 
                 // 將資料塞入 SQL 指令中
-                cmd.Parameters.AddWithValue("@ID", memberId);
+                cmd.Parameters.AddWithValue("@memberId", memberId);
 
                 // 開啟資料庫連線，並執行 SQL 指令
                 conn.Open();
@@ -44,10 +44,10 @@ namespace side.DAO
                 SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WalletItem " +
                     "set Value = Value + CAST(" + Convert.ToInt32(value) + " AS DECIMAL(18, 2))" +
                     ", UpdateTime = GETDATE() " +
-                    "where memberId = @ID" + 
+                    "where memberId = @memberId" + 
                     ";", conn);
                 // 將資料塞入 SQL 指令中
-                cmd.Parameters.AddWithValue("@ID", memberId);
+                cmd.Parameters.AddWithValue("@memberId", memberId);
 
                 // 開啟資料庫連線，並執行 SQL 指令
                 conn.Open();

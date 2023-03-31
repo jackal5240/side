@@ -12,10 +12,10 @@ namespace side.Controller
 {
     internal class CancelController
     {
+        CancelServices cancelServices = new CancelServices();
         internal SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule)
         {
             SQL_ExcuteResult result;
-            CancelServices cancelServices = new CancelServices();
 
             // 更新 提領紀錄
             result = cancelServices.UpdateWallet_WithdrawItem(dataSet_CancelApplyVaule.memberId, dataSet_CancelApplyVaule.submissionTime);

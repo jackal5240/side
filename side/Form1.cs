@@ -34,7 +34,7 @@ namespace side
             dataSet_WithdrawDetail = new DataSet_WithdrawDetail
             {
                 memberId = 6,
-                name = "cas1",
+                name = "cas2",
                 bankData = new DataSet_WithdrawDetail.BankData
                 {
                     bankName = "004-台灣銀行",

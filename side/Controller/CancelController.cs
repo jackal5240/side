@@ -38,19 +38,19 @@ namespace side.Controller
             // 先索取 原始金額
             string userIdAndValue = cancelServices.getMemberShip2UserIdAndValue(account);
             int userId = Convert.ToInt32(Regex.Split(userIdAndValue, ",")[0]);
-            string value = Regex.Split(userIdAndValue, ",")[1];
+            string oldValue = Regex.Split(userIdAndValue, ",")[1];
 
             if (userId != -1)
             {
                 // 更新 提領紀錄
-                result = cancelServices.CancelApplyValue_UpdateWallet_WithdrawItem(userId, value, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime);
+                result = cancelServices.CancelApplyValue_UpdateWallet_WithdrawItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime);
 
                 if (result.isSuccess)
                 {
                     // 更新 原始金額
-                    result = cancelServices.CancelApplyValue_UpdateWallet_WalletItem(userId, value, dataSet_CancelApplyVaule.withdrawData.value);
+                    result = cancelServices.CancelApplyValue_UpdateWallet_WalletItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value);
                     // 新增 歷史紀錄
-                    result = cancelServices.CancelApplyValue_InsertWallet_WalletRecordItem(userId, value, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, editor);
+                    result = cancelServices.CancelApplyValue_InsertWallet_WalletRecordItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, editor);
                 }
             }
 

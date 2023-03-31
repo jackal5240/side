@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Windows.Forms;
 using side.Controller;
+using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace side.Services
 {
@@ -38,19 +40,19 @@ namespace side.Services
                 {
                     result.isSuccess = true;
                     result.FeedbackMsg = "Step1 更新成功 提領紀錄 Wallet_WithdrawItem";
-                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + oldValue + "\",\"異動金額\":\"" + increment + "\",\"提交時間\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + Convert.ToString((int)decimal.Parse(oldValue) + (int)decimal.Parse(increment)) + "\",\"異動金額\":\"" + increment + "\",\"提交時間\":\"" + date + "\"}";
                 }
                 else if (step > 1)
                 {
                     result.isSuccess = false;
                     result.FeedbackMsg = "Step1 更新失敗 資料筆數 > 1, Wallet_WithdrawItem";
-                    result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + increment + "\",\"date\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + increment + "\",\"提交時間\":\"" + date + "\"}";
                 }
                 else
                 {
                     result.isSuccess = false;
                     result.FeedbackMsg = "Step1 更新失敗 找不到資料 Wallet_WithdrawItem";
-                    result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + increment + "\",\"date\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + increment + "\",\"提交時間\":\"" + date + "\"}";
                 }
 
                 return result;
@@ -61,7 +63,7 @@ namespace side.Services
 
                 result.isSuccess = false;
                 result.FeedbackMsg = "Step1 更新失敗 提領紀錄 Wallet_WithdrawItem";
-                result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + increment + "\",\"date\":\"" + date + "\"}";
+                result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + increment + "\",\"提交時間\":\"" + date + "\"}";
 
                 return result;
             }
@@ -77,19 +79,19 @@ namespace side.Services
                 {
                     result.isSuccess = true;
                     result.FeedbackMsg = "Step2 更新成功 原始金額 Wallet_WalletItem";
-                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\"}";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + Convert.ToString((int)decimal.Parse(oldValue) + (int)decimal.Parse(value)) + "\",\"異動金額\":\"" + value + "\"}";
                 }
                 else if (step > 1)
                 {
                     result.isSuccess = false;
                     result.FeedbackMsg = "Step2 更新失敗 資料筆數 > 1, Wallet_WalletItem";
-                    result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\"}";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\"}";
                 }
                 else
                 {
                     result.isSuccess = false;
                     result.FeedbackMsg = "Step2 更新失敗 找不到資料 Wallet_WalletItem";
-                    result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\"}";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\"}";
                 }
 
                 return result;
@@ -100,7 +102,7 @@ namespace side.Services
 
                 result.isSuccess = false;
                 result.FeedbackMsg = "Step2 更新失敗 原始金額 Wallet_WithdrawItem";
-                result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\"}";
+                result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\"}";
 
                 return result;
             }
@@ -117,19 +119,19 @@ namespace side.Services
                 {
                     result.isSuccess = true;
                     result.FeedbackMsg = "Step3 新增成功 提領紀錄 Wallet_WalletRecordItem";
-                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\",\"提交時間\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"memeberId\":\"" + memberId + "\",\"異動後金額\":\"" + Convert.ToString((int)decimal.Parse(oldValue) + (int)decimal.Parse(value)) + "\",\"異動金額\":\"" + value + "\",\"提交時間\":\"" + date + "\"}";
                 }
                 else if (step > 1)
                 {
                     result.isSuccess = false;
                     result.FeedbackMsg = "Step3 新增失敗 資料筆數 > 1, Wallet_WalletRecordItem";
-                    result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\",\"date\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\",\"提交時間\":\"" + date + "\"}";
                 }
                 else
                 {
                     result.isSuccess = false;
                     result.FeedbackMsg = "Step3 新增失敗 找不到資料 Wallet_WalletRecordItem";
-                    result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\",\"date\":\"" + date + "\"}";
+                    result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\",\"提交時間\":\"" + date + "\"}";
                 }
 
                 return result;
@@ -140,7 +142,7 @@ namespace side.Services
 
                 result.isSuccess = false;
                 result.FeedbackMsg = "Step3 新增失敗 歷史紀錄 Wallet_WalletRecordItem";
-                result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\",\"date\":\"" + date + "\"}";
+                result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"原始金額\":\"" + oldValue + "\",\"異動金額\":\"" + value + "\",\"提交時間\":\"" + date + "\"}";
 
                 return result;
             }

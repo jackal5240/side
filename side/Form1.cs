@@ -67,7 +67,7 @@ namespace side
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             string account = "cas2";
-            string editor = "";
+            string editor = " ";
             DataSet_CancelApplyValue dataSet_CancelApplyVaule = Init();
 
             CancelController cancelController = CancelController.getInstance();

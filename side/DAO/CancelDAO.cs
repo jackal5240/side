@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,53 +53,59 @@ namespace side.DAO
                 return Convert.ToString(id) + "," + value;
             }
         }
-        internal int UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime)
+        internal int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime)
         {
             int ans = 0;
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                // 更新提領狀態 [Wallet_WithdrawItem]
-                SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WithdrawItem " +
-                    "set State = '已取消', UpdateTime = GETDATE() " +
-                    "where memberId = @memberId AND State = '未處理'" +
-                    "AND ( CreateTime between '" + startTime + "'" +
-                    "and '" + endTime + "' ) " +
-                    ";", conn);
+                ans = judge(conn, memberId, startTime, endTime);
+                if (ans == 1)
+                {
+                    // 更新提領狀態 [Wallet_WithdrawItem]
+                    SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WithdrawItem " +
+                        "set State = '已取消', UpdateTime = GETDATE() " +
+                        "where memberId = @memberId AND State = '未處理'" +
+                        "AND ( CreateTime between '" + startTime + "'" +
+                        "and '" + endTime + "' ) " +
+                        ";", conn);
 
-                // 將資料塞入 SQL 指令中
-                cmd.Parameters.AddWithValue("@memberId", memberId);
+                    // 將資料塞入 SQL 指令中
+                    cmd.Parameters.AddWithValue("@memberId", memberId);
 
-                // 開啟資料庫連線，並執行 SQL 指令
-                conn.Open();
-                ans = cmd.ExecuteNonQuery();
-                conn.Close();
-
+                    // 開啟資料庫連線，並執行 SQL 指令
+                    conn.Open();
+                    ans = cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
                 return ans;
             }
         }
-        internal int UpdateWallet_WalletItem(int memberId, string value)
+        internal int CancelApplyValue_UpdateWallet_WalletItem(int memberId, string value)
         {
             int ans = 0;
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                // 更新原始金額 [Wallet_WithdrawItem]
-                SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WalletItem " +
+                ans = judge(conn, memberId);
+                if (ans == 1)
+                {
+                    // 更新原始金額 [Wallet_WithdrawItem]
+                    SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WalletItem " +
                     "set Value = Value + CAST(" + Convert.ToInt32(value) + " AS DECIMAL(18, 2))" +
                     ", UpdateTime = GETDATE() " +
-                    "where memberId = @memberId" + 
+                    "where memberId = @memberId" +
                     ";", conn);
-                // 將資料塞入 SQL 指令中
-                cmd.Parameters.AddWithValue("@memberId", memberId);
+                    // 將資料塞入 SQL 指令中
+                    cmd.Parameters.AddWithValue("@memberId", memberId);
 
-                // 開啟資料庫連線，並執行 SQL 指令
-                conn.Open();
-                ans = cmd.ExecuteNonQuery();
-                conn.Close();
-
+                    // 開啟資料庫連線，並執行 SQL 指令
+                    conn.Open();
+                    ans = cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
                 return ans;
             }
         }
-        public int InsertWallet_WalletRecordItem(int memberId, string value, string startTime, string endTime, string editor)
+        public int CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string value, string startTime, string endTime, string editor)
         {
             int ans = 0;
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -118,7 +125,6 @@ namespace side.DAO
 
                 // 將資料塞入 SQL 指令中
                 cmd.Parameters.AddWithValue("@memberId", memberId);
-                // cmd.Parameters.AddWithValue("@Increment", dataSet_CancelApplyVaule.withdrawData.value);
 
                 // 開啟資料庫連線，並執行 SQL 指令
                 conn.Open();
@@ -126,6 +132,79 @@ namespace side.DAO
                 conn.Close();
 
                 return ans;
+            }
+        }
+        private int judge(SqlConnection conn, int memberId, string startTime, string endTime)
+        {
+            // 拿到 MemberId和 原始金額
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(1) AS count " +
+                "FROM bu_test.dbo.Wallet_WithdrawItem " +
+                "where memberId = @memberId AND State = '未處理'" +
+                        "AND ( CreateTime between '" + startTime + "'" +
+                        "and '" + endTime + "' ) " +
+                        ";", conn);
+
+            // 將資料塞入 SQL 指令中
+            cmd.Parameters.AddWithValue("@memberId", memberId);
+
+            // 開啟資料庫連線，並執行 SQL 指令
+            conn.Open();
+            int count = -1;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                count = Convert.ToInt32(reader["count"]);
+            }
+            conn.Close();
+            reader.Close();
+
+            if (count == 1)
+            {
+                return count;
+            }
+            else if (count > 1)
+            {
+                return count;
+            }
+            else
+            {
+                return count;
+            }
+        }
+        private int judge(SqlConnection conn, int memberId)
+        {
+            // 拿到 MemberId和 原始金額
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(1) AS count " +
+                "FROM bu_test.dbo.Wallet_WalletItem " +
+                "where memberId = @memberId ;", conn);
+
+            // 將資料塞入 SQL 指令中
+            cmd.Parameters.AddWithValue("@memberId", memberId);
+
+            // 開啟資料庫連線，並執行 SQL 指令
+            conn.Open();
+            int count = -1;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                count = Convert.ToInt32(reader["count"]);
+            }
+            conn.Close();
+            reader.Close();
+
+            if (count == 1)
+            {
+                return count;
+            }
+            else if (count > 1)
+            {
+                return count;
+            }
+            else
+            {
+                return count;
             }
         }
     }

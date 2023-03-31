@@ -11,8 +11,8 @@ namespace side.ServicesImpl
     internal interface ICancelServices
     {
         string getMemberShip2UserIdAndValue(string account);
-        SQL_ExcuteResult UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date);
-        SQL_ExcuteResult UpdateWallet_WalletItem(int memberId, string oldValue, string value);
-        SQL_ExcuteResult InsertWallet_WalletRecordItem(int memberId, string oldValue, string value, string date, string editor);
+        SQL_ExcuteResult CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date);
+        SQL_ExcuteResult CancelApplyValue_UpdateWallet_WalletItem(int memberId, string oldValue, string value);
+        SQL_ExcuteResult CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string oldValue, string value, string date, string editor);
     }
 }

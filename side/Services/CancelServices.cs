@@ -26,13 +26,13 @@ namespace side.Services
         {
             return cancelDAO.getMemberShip2UserIdAndValue(account);
         }
-        public SQL_ExcuteResult UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date)
+        public SQL_ExcuteResult CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             var aa = GetTimeRange(InputDateTimeFormat(date));
             try
             {
-                int step = cancelDAO.UpdateWallet_WithdrawItem(memberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                int step = cancelDAO.CancelApplyValue_UpdateWallet_WithdrawItem(memberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
                 if (step == 1)
                 {
@@ -43,7 +43,7 @@ namespace side.Services
                 else if (step > 1)
                 {
                     result.isSuccess = false;
-                    result.FeedbackMsg = "Step1 更新成功 資料筆數 > 1, Wallet_WithdrawItem";
+                    result.FeedbackMsg = "Step1 更新失敗 資料筆數 > 1, Wallet_WithdrawItem";
                     result.ReturnDataJson = "{\"functionEroor\":\"Step1 cancelDAO.UpdateWallet_WithdrawItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + increment + "\",\"date\":\"" + date + "\"}";
                 }
                 else
@@ -66,12 +66,12 @@ namespace side.Services
                 return result;
             }
         }
-        public SQL_ExcuteResult UpdateWallet_WalletItem(int memberId, string oldValue, string value)
+        public SQL_ExcuteResult CancelApplyValue_UpdateWallet_WalletItem(int memberId, string oldValue, string value)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             try
             {
-                int step = cancelDAO.UpdateWallet_WalletItem(memberId, value);
+                int step = cancelDAO.CancelApplyValue_UpdateWallet_WalletItem(memberId, value);
 
                 if (step == 1)
                 {
@@ -82,7 +82,7 @@ namespace side.Services
                 else if (step > 1)
                 {
                     result.isSuccess = false;
-                    result.FeedbackMsg = "Step2 更新成功 資料筆數 > 1, Wallet_WalletItem";
+                    result.FeedbackMsg = "Step2 更新失敗 資料筆數 > 1, Wallet_WalletItem";
                     result.ReturnDataJson = "{\"functionEroor\":\"Step2 cancelDAO.UpdateWallet_WalletItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\"}";
                 }
                 else
@@ -105,13 +105,13 @@ namespace side.Services
                 return result;
             }
         }
-        public SQL_ExcuteResult InsertWallet_WalletRecordItem(int memberId, string oldValue, string value, string date, string editor)
+        public SQL_ExcuteResult CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string oldValue, string value, string date, string editor)
         {
             var aa = GetTimeRange(InputDateTimeFormat(date));
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             try
             {
-                int step = cancelDAO.InsertWallet_WalletRecordItem(memberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"), editor);
+                int step = cancelDAO.CancelApplyValue_InsertWallet_WalletRecordItem(memberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"), editor);
 
                 if (step == 1)
                 {
@@ -122,7 +122,7 @@ namespace side.Services
                 else if (step > 1)
                 {
                     result.isSuccess = false;
-                    result.FeedbackMsg = "Step3 新增成功 資料筆數 > 1, Wallet_WalletRecordItem";
+                    result.FeedbackMsg = "Step3 新增失敗 資料筆數 > 1, Wallet_WalletRecordItem";
                     result.ReturnDataJson = "{\"functionEroor\":\"Step3 cancelDAO.InsertWallet_WalletRecordItem\",\"memeberId\":\"" + memberId + "\",\"oldValue\":\"" + oldValue + "\",\"increment\":\"" + value + "\",\"date\":\"" + date + "\"}";
                 }
                 else

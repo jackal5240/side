@@ -52,6 +52,8 @@ namespace side
                 submissionTime = "2023-03-27 16:11:51.340"
             };
             memberIdTextBox.Text = Convert.ToString(dataSet_WithdrawDetail.memberId);
+
+            textBox9.Text = dataSet_WithdrawDetail.name;
             textBox1.Text = dataSet_WithdrawDetail.bankData.bankName;
             textBox2.Text = dataSet_WithdrawDetail.bankData.branch;
             textBox3.Text = dataSet_WithdrawDetail.bankData.passbookName;
@@ -74,7 +76,7 @@ namespace side
 
             result = cancelController.CancelApplyValue(dataSet_CancelApplyVaule, account, editor);
 
-            MessageBox.Show("");
+            MessageBox.Show(result.FeedbackMsg);
         }
 
         private DataSet_CancelApplyValue Init()

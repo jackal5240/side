@@ -52,6 +52,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +70,7 @@
             // 
             // memberIdTextBox
             // 
-            this.memberIdTextBox.Location = new System.Drawing.Point(418, 45);
+            this.memberIdTextBox.Location = new System.Drawing.Point(418, 12);
             this.memberIdTextBox.Name = "memberIdTextBox";
             this.memberIdTextBox.Size = new System.Drawing.Size(160, 22);
             this.memberIdTextBox.TabIndex = 1;
@@ -83,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(311, 48);
+            this.label2.Location = new System.Drawing.Point(317, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 4;
@@ -270,11 +272,29 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "提交時間";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(317, 48);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 12);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "姓名";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(418, 45);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(160, 22);
+            this.textBox9.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 555);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBox9);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -320,6 +340,8 @@
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox9;
     }
 }
 

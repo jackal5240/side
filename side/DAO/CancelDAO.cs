@@ -106,13 +106,13 @@ namespace side.DAO
                 // 記錄一筆 取消提領 [Wallet_WalletRecordItem]
                 SqlCommand cmd = new SqlCommand("INSERT INTO bu_test.dbo.Wallet_WalletRecordItem " +
                     "(WalletId, Id, Reason, Old, Increment, New, Remark, IsHide, CreateTime, Editor, UpdateTime)" +
-                    " select MemberId, (select MAX(Id) + 1 from bu_test.dbo.Wallet_WalletRecordItem), Type" +
+                    " select MemberId, (select MAX(Id) + 1 from bu_test.dbo.Wallet_WalletRecordItem), '取消提領'" +
                     ", (select Value from bu_test.dbo.Wallet_WalletItem where MemberId = @memberId) - CAST(" + Convert.ToInt32(value) + " AS DECIMAL(18, 2))" +
                     ", Value" +
                     ", (select Value from bu_test.dbo.Wallet_WalletItem where MemberId = @memberId)" +
                     ", Remark ,'0' ,GETDATE() ,'" + editor + "' ,UpdateTime " +
                     "from bu_test.dbo.Wallet_WithdrawItem " +
-                    "where MemberId = @memberId AND State = '已處理' AND Type = '取消提領' " +
+                    "where MemberId = @memberId AND State = '已取消' AND Type = '提領' " +
                     "AND ( CreateTime between '" + startTime + "'" +
                     "and '" + endTime + "' ); ", conn);
 

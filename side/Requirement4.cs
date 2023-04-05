@@ -19,13 +19,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace side
 {
-    public partial class Form1 : Form
+    public partial class Requirement4 : Form
     {
         DataSet_WithdrawDetail dataSet_WithdrawDetail;
         private const string WithdrawApiUrl = "http://localhost:5000/withdrawal/withdraw";
         private const string CancelApiUrl = "http://localhost:5000/withdrawal/cancel";
 
-        public Form1()
+        public Requirement4()
         {
             InitializeComponent();
         }

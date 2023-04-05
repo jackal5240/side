@@ -1,6 +1,6 @@
 ﻿namespace side
 {
-    partial class Form1
+    partial class Requirement4
     {
         /// <summary>
         /// 設計工具所需的變數。

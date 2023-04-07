@@ -4,6 +4,7 @@ namespace side.DataSet
 {
     public class DataSet_WidthdrawItem
     {
+        public string CaseId { get; set; }
         public int MemberId { get; set; }
         public int ToMemberId { get; set; }
         public int Id { get; set; }

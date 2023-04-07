@@ -71,6 +71,7 @@ namespace side.DAO
                     {
                         items.Add(new DataSet_WidthdrawItem
                         {
+                            CaseId = $"{reader["CaseId"]}",
                             MemberId = Convert.ToInt32(reader["MemberId"]),
                             ToMemberId = Convert.ToInt32(reader["ToMemberId"]),
                             Id = Convert.ToInt32(reader["Id"]),

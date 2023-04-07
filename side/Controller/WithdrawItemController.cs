@@ -1,4 +1,6 @@
-﻿using side.DAO;
+﻿using Newtonsoft.Json;
+using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
+using side.DAO;
 using side.DataSet;
 using System;
 using System.Collections.Generic;
@@ -24,9 +26,48 @@ namespace side.Controller
             return _withdrawItemInstance.GetNextCaseId();
         }
 
-        public DataSet_WithdrawItemQuerying GetQuerying(string date)
+        /// <summary>
+        /// 取得查詢結果。
+        /// </summary>
+        /// <param name="account">帳號</param>
+        /// <param name="date">日期(西元年/月)</param>
+        /// <returns><see cref="SQL_ExcuteResult"/> 類別物件。</returns>
+        public SQL_ExcuteResult GetQuerying(string account, string date)
         {
-            return _withdrawItemInstance.GetDataByMonth(date);
+            bool isSucc = false;
+            string feedback;
+            string dataJson = "";
+            try
+            {
+                feedback = "Success";
+                isSucc = true;
+
+                var data = _withdrawItemInstance.GetDataByAccountAndMonth(account, date);
+                dataJson = JsonConvert.SerializeObject(data);
+            }
+            catch (Exception ex)
+            {
+                feedback = $"Fail，{ex.Message}";
+            }
+
+            return new SQL_ExcuteResult
+            {
+                isSuccess = isSucc,
+                FeedbackMsg = feedback,
+                ReturnDataJson = dataJson,
+            };
+        }
+
+        public void ETL()
+        {
+            try
+            {
+                _withdrawItemInstance.InitializeCaseId();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

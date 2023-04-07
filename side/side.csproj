@@ -37,7 +37,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NiteenNity_Case_SQL_API">
+    <Reference Include="NiteenNity_Case_SQL_API, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\006. References\NiteenNity_Case_SQL_API.dll</HintPath>
     </Reference>
     <Reference Include="System" />

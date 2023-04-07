@@ -46,7 +46,7 @@ namespace side.DAO
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 _sqlCommon.conn_str = _connectionString;
-                var ttt = _sqlCommon.GetMemberShipID(conn, account);
+                var memberId = _sqlCommon.GetMemberShipID(conn, account);
 
                 if (conn.State != ConnectionState.Open)
                 {
@@ -64,7 +64,7 @@ namespace side.DAO
 
                     cmd.Parameters.AddWithValue("@Start", durationStart);
                     cmd.Parameters.AddWithValue("@End", durationEnd);
-                    cmd.Parameters.AddWithValue("@MemberId", "6");
+                    cmd.Parameters.AddWithValue("@MemberId", memberId.ReturnDataJson);
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())

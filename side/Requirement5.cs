@@ -40,15 +40,33 @@ namespace side
 
         private void BtnQuery_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(TxtMonth.Text) || !int.TryParse(TxtMonth.Text, out int month))
+            if (string.IsNullOrEmpty(TxtMonth.Text) || !DateTime.TryParse(TxtMonth.Text, out DateTime _))
             {
-                MessageBox.Show("請輸入正確的月份數字");
+                MessageBox.Show("請輸入正確的年月");
                 return;
             }
 
-            var result = controller.GetQuerying(month);
+            if (string.IsNullOrEmpty(TxtAccount.Text))
+            {
+                MessageBox.Show("請輸入帳號");
+                return;
+            }
 
-            TxtResult.Text = JsonConvert.SerializeObject(result);
+            var result = controller.GetQuerying(TxtAccount.Text, TxtMonth.Text);
+
+            TxtResult.Text = JsonConvert.SerializeObject(result, Formatting.Indented);
+        }
+
+        private void BtnETL_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                controller.ETL();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

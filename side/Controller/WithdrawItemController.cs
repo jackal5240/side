@@ -1,12 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DAO;
-using side.DataSet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace side.Controller
 {
@@ -24,6 +19,37 @@ namespace side.Controller
         public string GetNewCaseId()
         {
             return _withdrawItemInstance.GetNextCaseId();
+        }
+
+        /// <summary>
+        /// 取得查詢結果。
+        /// </summary>
+        /// <param name="CaseId">單號</param>
+        /// <returns><see cref="SQL_ExcuteResult"/> 類別物件。</returns>
+        public SQL_ExcuteResult GetQuerying(string CaseId)
+        {
+            bool isSucc = false;
+            string feedback;
+            string dataJson = "";
+            try
+            {
+                feedback = "Success";
+                isSucc = true;
+
+                var data = _withdrawItemInstance.GetDataByCaseId(CaseId);
+                dataJson = JsonConvert.SerializeObject(data);
+            }
+            catch (Exception ex)
+            {
+                feedback = $"Fail，{ex.Message}";
+            }
+
+            return new SQL_ExcuteResult
+            {
+                isSuccess = isSucc,
+                FeedbackMsg = feedback,
+                ReturnDataJson = dataJson,
+            };
         }
 
         /// <summary>

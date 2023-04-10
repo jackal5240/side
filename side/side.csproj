@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bunifu.UI.WinForms.BunifuLabel">
+      <HintPath>..\..\..\004. Element\UI Pack\Winform UI\BunifuCrack-main\Bunifu.UI.WinForms.BunifuLabel.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\Newtonsoft.Json.dll</HintPath>
@@ -56,8 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\CancelController.cs" />
+    <Compile Include="Controller\GameUserItemController.cs" />
     <Compile Include="Controller\WithdrawItemController.cs" />
     <Compile Include="DAO\CancelDAO.cs" />
+    <Compile Include="DAO\GameUserItemDAO.cs" />
     <Compile Include="DAO\WithdrawItemDAO.cs" />
     <Compile Include="DataSet\DataSet_CancelApplyValue.cs" />
     <Compile Include="DataSet\DataSet_WidthdrawItem.cs" />
@@ -79,6 +84,7 @@
       <DependentUpon>Requirement5.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\CancelServices.cs" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Requirement4.resx">
       <DependentUpon>Requirement4.cs</DependentUpon>
     </EmbeddedResource>

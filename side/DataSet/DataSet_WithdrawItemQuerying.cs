@@ -4,7 +4,7 @@ namespace side.DataSet
 {
     public class DataSet_WithdrawItemQuerying
     {
-        public string QueryYYYMM;
+        public dynamic QueryBy;
         public List<DataSet_WidthdrawItem> WidthdrawItems;
     }
 }

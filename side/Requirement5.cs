@@ -15,6 +15,7 @@ namespace side
     public partial class Requirement5 : Form
     {
         private readonly WithdrawItemController controller = WithdrawItemController.GetInstance();
+        private readonly GameUserItemController gameUserItemController = GameUserItemController.GetInstance();
 
         public Requirement5()
         {
@@ -67,6 +68,32 @@ namespace side
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void BtnQryByCaseId_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtCaseId.Text))
+            {
+                MessageBox.Show("請輸入單號");
+                return;
+            }
+
+            var result = controller.GetQuerying(TxtCaseId.Text);
+
+            TxtResult.Text = JsonConvert.SerializeObject(result, Formatting.Indented);
+        }
+
+        private void BtnRegisterNum_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtRegistDate.Text) || !DateTime.TryParse(TxtRegistDate.Text, out DateTime _))
+            {
+                MessageBox.Show("請輸入正確的日期");
+                return;
+            }
+
+            var result = gameUserItemController.GetRegisterNum(TxtRegistDate.Text);
+
+            NudRegisterNum.Value = Convert.ToDecimal(result.ReturnDataJson);
         }
     }
 }

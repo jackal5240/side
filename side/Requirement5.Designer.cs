@@ -38,6 +38,13 @@
             this.TxtAccount = new System.Windows.Forms.TextBox();
             this.TxtMonth = new System.Windows.Forms.MaskedTextBox();
             this.BtnETL = new System.Windows.Forms.Button();
+            this.LblCaseId = new System.Windows.Forms.Label();
+            this.TxtCaseId = new System.Windows.Forms.TextBox();
+            this.BtnQryByCaseId = new System.Windows.Forms.Button();
+            this.BtnRegisterNum = new System.Windows.Forms.Button();
+            this.NudRegisterNum = new System.Windows.Forms.NumericUpDown();
+            this.TxtRegistDate = new System.Windows.Forms.MaskedTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.NudRegisterNum)).BeginInit();
             this.SuspendLayout();
             // 
             // LblMonth
@@ -79,9 +86,9 @@
             // 
             // BtnQuery
             // 
-            this.BtnQuery.Location = new System.Drawing.Point(243, 58);
+            this.BtnQuery.Location = new System.Drawing.Point(243, 31);
             this.BtnQuery.Name = "BtnQuery";
-            this.BtnQuery.Size = new System.Drawing.Size(75, 23);
+            this.BtnQuery.Size = new System.Drawing.Size(75, 51);
             this.BtnQuery.TabIndex = 5;
             this.BtnQuery.Text = "查詢";
             this.BtnQuery.UseVisualStyleBackColor = true;
@@ -89,7 +96,7 @@
             // 
             // TxtResult
             // 
-            this.TxtResult.Location = new System.Drawing.Point(41, 89);
+            this.TxtResult.Location = new System.Drawing.Point(41, 125);
             this.TxtResult.Multiline = true;
             this.TxtResult.Name = "TxtResult";
             this.TxtResult.ReadOnly = true;
@@ -123,7 +130,7 @@
             // 
             // BtnETL
             // 
-            this.BtnETL.Location = new System.Drawing.Point(361, 145);
+            this.BtnETL.Location = new System.Drawing.Point(361, 125);
             this.BtnETL.Name = "BtnETL";
             this.BtnETL.Size = new System.Drawing.Size(75, 23);
             this.BtnETL.TabIndex = 10;
@@ -131,11 +138,75 @@
             this.BtnETL.UseVisualStyleBackColor = true;
             this.BtnETL.Click += new System.EventHandler(this.BtnETL_Click);
             // 
+            // LblCaseId
+            // 
+            this.LblCaseId.AutoSize = true;
+            this.LblCaseId.Location = new System.Drawing.Point(39, 92);
+            this.LblCaseId.Name = "LblCaseId";
+            this.LblCaseId.Size = new System.Drawing.Size(29, 12);
+            this.LblCaseId.TabIndex = 11;
+            this.LblCaseId.Text = "單號";
+            // 
+            // TxtCaseId
+            // 
+            this.TxtCaseId.Location = new System.Drawing.Point(74, 88);
+            this.TxtCaseId.Name = "TxtCaseId";
+            this.TxtCaseId.Size = new System.Drawing.Size(138, 22);
+            this.TxtCaseId.TabIndex = 12;
+            // 
+            // BtnQryByCaseId
+            // 
+            this.BtnQryByCaseId.Location = new System.Drawing.Point(243, 88);
+            this.BtnQryByCaseId.Name = "BtnQryByCaseId";
+            this.BtnQryByCaseId.Size = new System.Drawing.Size(75, 23);
+            this.BtnQryByCaseId.TabIndex = 13;
+            this.BtnQryByCaseId.Text = "以單號查詢";
+            this.BtnQryByCaseId.UseVisualStyleBackColor = true;
+            this.BtnQryByCaseId.Click += new System.EventHandler(this.BtnQryByCaseId_Click);
+            // 
+            // BtnRegisterNum
+            // 
+            this.BtnRegisterNum.Location = new System.Drawing.Point(361, 220);
+            this.BtnRegisterNum.Name = "BtnRegisterNum";
+            this.BtnRegisterNum.Size = new System.Drawing.Size(75, 23);
+            this.BtnRegisterNum.TabIndex = 14;
+            this.BtnRegisterNum.Text = "註冊人數";
+            this.BtnRegisterNum.UseVisualStyleBackColor = true;
+            this.BtnRegisterNum.Click += new System.EventHandler(this.BtnRegisterNum_Click);
+            // 
+            // NudRegisterNum
+            // 
+            this.NudRegisterNum.Location = new System.Drawing.Point(361, 249);
+            this.NudRegisterNum.Maximum = new decimal(new int[] {
+            1316134911,
+            2328,
+            0,
+            0});
+            this.NudRegisterNum.Name = "NudRegisterNum";
+            this.NudRegisterNum.ReadOnly = true;
+            this.NudRegisterNum.Size = new System.Drawing.Size(120, 22);
+            this.NudRegisterNum.TabIndex = 15;
+            // 
+            // TxtRegistDate
+            // 
+            this.TxtRegistDate.ImeMode = System.Windows.Forms.ImeMode.Alpha;
+            this.TxtRegistDate.Location = new System.Drawing.Point(361, 192);
+            this.TxtRegistDate.Mask = "0000/00/00";
+            this.TxtRegistDate.Name = "TxtRegistDate";
+            this.TxtRegistDate.Size = new System.Drawing.Size(100, 22);
+            this.TxtRegistDate.TabIndex = 16;
+            // 
             // Requirement5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 450);
+            this.Controls.Add(this.TxtRegistDate);
+            this.Controls.Add(this.NudRegisterNum);
+            this.Controls.Add(this.BtnRegisterNum);
+            this.Controls.Add(this.BtnQryByCaseId);
+            this.Controls.Add(this.TxtCaseId);
+            this.Controls.Add(this.LblCaseId);
             this.Controls.Add(this.BtnETL);
             this.Controls.Add(this.TxtMonth);
             this.Controls.Add(this.TxtAccount);
@@ -148,6 +219,7 @@
             this.Controls.Add(this.LblMonth);
             this.Name = "Requirement5";
             this.Text = "Requirement5";
+            ((System.ComponentModel.ISupportInitialize)(this.NudRegisterNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,5 +236,11 @@
         private System.Windows.Forms.TextBox TxtAccount;
         private System.Windows.Forms.MaskedTextBox TxtMonth;
         private System.Windows.Forms.Button BtnETL;
+        private System.Windows.Forms.Label LblCaseId;
+        private System.Windows.Forms.TextBox TxtCaseId;
+        private System.Windows.Forms.Button BtnQryByCaseId;
+        private System.Windows.Forms.Button BtnRegisterNum;
+        private System.Windows.Forms.NumericUpDown NudRegisterNum;
+        private System.Windows.Forms.MaskedTextBox TxtRegistDate;
     }
 }

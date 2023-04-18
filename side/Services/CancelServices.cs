@@ -26,7 +26,20 @@ namespace side.Services
         }
         public string getMemberShip2UserIdAndValue(string account)
         {
-            return cancelDAO.getMemberShip2UserIdAndValue(account);
+            string ans = cancelDAO.getMemberShip2UserIdAndValue(account);
+            if (ans.Contains(","))
+            {
+                return ans;
+            }
+            else if ("0".Equals(ans) || "-1".Equals(ans))
+            {
+                MessageBox.Show("MemberShip2_User / Wallet_WalletItem / Config_SystemConfigItem 找不到同個Id的人");
+                return "-1,";
+            }
+            else
+            {
+                return "-2,";
+            }
         }
         public string getWallet_WithdrawItem_Remark(int memberId, string date, string withdrawFeeRatio, string withdrawFee)
         {

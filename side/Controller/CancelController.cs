@@ -38,13 +38,12 @@ namespace side.Controller
             // 先索取 原始金額，拿到 MemberId和 原始金額 和 比例手續費，固定手續費
             string userIdAndValue = cancelServices.getMemberShip2UserIdAndValue(account);
             int userId = Convert.ToInt32(Regex.Split(userIdAndValue, ",")[0]);
-            string oldValue = Regex.Split(userIdAndValue, ",")[1];
-            string withdrawFeeRatio = Regex.Split(userIdAndValue, ",")[2];
-            string withdrawFee = Regex.Split(userIdAndValue, ",")[3];
-            string remark = "";
-
-            if (userId != -1)
+            if (userId != -1 && userId != -2)
             {
+                string oldValue = Regex.Split(userIdAndValue, ",")[1];
+                string withdrawFeeRatio = Regex.Split(userIdAndValue, ",")[2];
+                string withdrawFee = Regex.Split(userIdAndValue, ",")[3];
+
                 // 銀行：004-台灣銀行<br/>分行：123456<br/>戶名：1231<br/>帳號：123456564654<br/>虛擬錢包地址：asdasdassdad
                 // 提領至 004 - 台灣銀行 - 123456 123456564654 < br /> 提領額度1,000，手續費率0 % 0，固定手續費0，實際提領額度1,000 < br />
                 string test = cancelServices.getWallet_WithdrawItem_Remark(userId, dataSet_CancelApplyVaule.submissionTime, withdrawFeeRatio, withdrawFee);
@@ -62,7 +61,7 @@ namespace side.Controller
                 string ratio = Regex.Split(test, ",")[3];
                 // 固定手續費
                 string fee = Regex.Split(test, ",")[4];
-                remark = "提領至 " + bank + "-" + branch + " " + accountNumber + "<br/>提領額度" + value + "，手續費率" + ratio + "% " + Convert.ToString(Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100) + "，固定手續費" + fee + "，實際提領額度" + Convert.ToString(Convert.ToDecimal(value) - Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100 - Convert.ToDecimal(fee)) + "<br/>";
+                string remark = "提領至 " + bank + "-" + branch + " " + accountNumber + "<br/>提領額度" + value + "，手續費率" + ratio + "% " + Convert.ToString(Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100) + "，固定手續費" + fee + "，實際提領額度" + Convert.ToString(Convert.ToDecimal(value) - Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100 - Convert.ToDecimal(fee)) + "<br/>";
 
                 // 更新 提領紀錄
                 result = cancelServices.CancelApplyValue_UpdateWallet_WithdrawItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, withdrawFeeRatio, withdrawFee);
@@ -71,12 +70,12 @@ namespace side.Controller
                 {
                     // 更新 原始金額
                     result = cancelServices.CancelApplyValue_UpdateWallet_WalletItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, withdrawFeeRatio, withdrawFee);
-
+                    
                     // 新增 歷史紀錄
                     result = cancelServices.CancelApplyValue_InsertWallet_WalletRecordItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, editor, withdrawFeeRatio, withdrawFee, remark);
                 }
             }
-
+            
             return result;
         }
         

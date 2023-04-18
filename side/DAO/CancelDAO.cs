@@ -45,19 +45,26 @@ namespace side.DAO
                 string value = "-1";
                 string withdrawFeeRatio = "0";
                 string withdrawFee = "0";
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                int count = cmd.ExecuteNonQuery();
+                if (count == 1)
                 {
-                    id = Convert.ToInt32(reader["Id"]);
-                    value = Convert.ToString(reader["Value"]);
-                    withdrawFeeRatio = Convert.ToString(reader["WithdrawFeeRatio"]);
-                    withdrawFee = Convert.ToString(reader["WithdrawFee"]);
-                }
-                conn.Close();
-                reader.Close();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        id = Convert.ToInt32(reader["Id"]);
+                        value = Convert.ToString(reader["Value"]);
+                        withdrawFeeRatio = Convert.ToString(reader["WithdrawFeeRatio"]);
+                        withdrawFee = Convert.ToString(reader["WithdrawFee"]);
+                    }
+                    conn.Close();
+                    reader.Close();
 
-                return Convert.ToString(id) + "," + value + "," + withdrawFeeRatio + "," + withdrawFee;
+                    return Convert.ToString(id) + "," + value + "," + withdrawFeeRatio + "," + withdrawFee;
+                }
+                else
+                {
+                    return Convert.ToString(count);
+                }
             }
         }
         internal string getWallet_WithdrawItem_Remark(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)

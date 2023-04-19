@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NiteenNity_Case_SQL_API.Mode.Abstract;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DataSet;
 using side.Services;
@@ -19,7 +20,8 @@ namespace side.DAO
     internal class CancelDAO
     {
         // 資料庫連接字串
-        private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        //private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        ImplmentSQL sql = ImplmentSQL.getInstance();
         private static CancelDAO instance = new CancelDAO();
         public static CancelDAO getInstance()
         {
@@ -27,7 +29,7 @@ namespace side.DAO
         }
         internal string getMemberShip2UserIdAndValue(string account)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
             {
                 // 拿到 MemberId和 原始金額 和 比例手續費，固定手續費
                 SqlCommand cmd = new SqlCommand("SELECT A.Id, B.Value, C.WithdrawFeeRatio, C.WithdrawFee " +
@@ -69,7 +71,7 @@ namespace side.DAO
         }
         internal string getWallet_WithdrawItem_Remark(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
             {
                 // 拿到 Remark
                 SqlCommand cmd = new SqlCommand("SELECT Value, FeeRatio, Fee1, Remark " +
@@ -106,7 +108,7 @@ namespace side.DAO
         internal int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
             int ans = 0;
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
             {
                 ans = judge(conn, memberId, startTime, endTime);
                 if (ans == 1)
@@ -134,7 +136,7 @@ namespace side.DAO
         internal int CancelApplyValue_UpdateWallet_WalletItem(int memberId, string value)
         {
             int ans = 0;
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
             {
                 ans = judge(conn, memberId);
                 if (ans == 1)
@@ -159,7 +161,7 @@ namespace side.DAO
         public int CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string value, string startTime, string endTime, string editor, string withdrawFeeRatio, string withdrawFee, string remark)
         {
             int ans = 0;
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
             {
                 // 記錄一筆 取消提領 [Wallet_WalletRecordItem]
                 SqlCommand cmd = new SqlCommand("INSERT INTO bu_test.dbo.Wallet_WalletRecordItem " +

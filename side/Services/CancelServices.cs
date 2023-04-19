@@ -26,15 +26,33 @@ namespace side.Services
         }
         public string getMemberShip2UserIdAndValue(string account)
         {
-            return cancelDAO.getMemberShip2UserIdAndValue(account);
+            string ans = cancelDAO.getMemberShip2UserIdAndValue(account);
+            if (ans.Contains(","))
+            {
+                return ans;
+            }
+            else if ("0".Equals(ans) || "-1".Equals(ans))
+            {
+                MessageBox.Show("MemberShip2_User / Wallet_WalletItem / Config_SystemConfigItem 找不到同個Id的人");
+                return "-1,";
+            }
+            else
+            {
+                return "-2,";
+            }
         }
-        public SQL_ExcuteResult CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date)
+        public string getWallet_WithdrawItem_Remark(int memberId, string date, string withdrawFeeRatio, string withdrawFee)
+        {
+            var aa = GetTimeRange(InputDateTimeFormat(date));
+            return cancelDAO.getWallet_WithdrawItem_Remark(memberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"), withdrawFeeRatio, withdrawFee);
+        }
+        public SQL_ExcuteResult CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date, string withdrawFeeRatio, string withdrawFee)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             var aa = GetTimeRange(InputDateTimeFormat(date));
             try
             {
-                int step = cancelDAO.CancelApplyValue_UpdateWallet_WithdrawItem(memberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                int step = cancelDAO.CancelApplyValue_UpdateWallet_WithdrawItem(memberId, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"), withdrawFeeRatio, withdrawFee);
 
                 if (step == 1)
                 {
@@ -68,7 +86,7 @@ namespace side.Services
                 return result;
             }
         }
-        public SQL_ExcuteResult CancelApplyValue_UpdateWallet_WalletItem(int memberId, string oldValue, string value)
+        public SQL_ExcuteResult CancelApplyValue_UpdateWallet_WalletItem(int memberId, string oldValue, string value, string withdrawFeeRatio, string withdrawFee)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             try
@@ -107,13 +125,13 @@ namespace side.Services
                 return result;
             }
         }
-        public SQL_ExcuteResult CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string oldValue, string value, string date, string editor)
+        public SQL_ExcuteResult CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string oldValue, string value, string date, string editor, string withdrawFeeRatio, string withdrawFee, string remark)
         {
             var aa = GetTimeRange(InputDateTimeFormat(date));
             SQL_ExcuteResult result = new SQL_ExcuteResult();
             try
             {
-                int step = cancelDAO.CancelApplyValue_InsertWallet_WalletRecordItem(memberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"), editor);
+                int step = cancelDAO.CancelApplyValue_InsertWallet_WalletRecordItem(memberId, value, aa.startTime.ToString("yyyy-MM-dd HH:mm:ss"), aa.endTime.ToString("yyyy-MM-dd HH:mm:ss"), editor, withdrawFeeRatio, withdrawFee, remark);
 
                 if (step == 1)
                 {

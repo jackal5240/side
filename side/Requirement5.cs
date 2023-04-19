@@ -1,13 +1,7 @@
 ﻿using Newtonsoft.Json;
+using NiteenNity_Case_SQL_API.Mode.Abstract;
 using side.Controller;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace side
@@ -39,8 +33,21 @@ namespace side
             }
         }
 
+        private void InitConnectionString()
+        {
+            ImplmentSQL sqlImp = ImplmentSQL.getInstance();
+            if (!string.IsNullOrEmpty(TxtConnectionString.Text))
+            {
+                sqlImp.conn_str = TxtConnectionString.Text;
+                return;
+            }
+            sqlImp.conn_str = "data source=DESKTOP-C8S8A02\\MSSQLSERVER01;initial catalog=bu_test_Local;integrated security=True;";
+        }
+
         private void BtnQuery_Click(object sender, EventArgs e)
         {
+            InitConnectionString();
+
             if (string.IsNullOrEmpty(TxtMonth.Text) || !DateTime.TryParse(TxtMonth.Text, out DateTime _))
             {
                 MessageBox.Show("請輸入正確的年月");
@@ -60,6 +67,8 @@ namespace side
 
         private void BtnETL_Click(object sender, EventArgs e)
         {
+            InitConnectionString();
+
             try
             {
                 controller.ETL();
@@ -72,6 +81,8 @@ namespace side
 
         private void BtnQryByCaseId_Click(object sender, EventArgs e)
         {
+            InitConnectionString();
+
             if (string.IsNullOrEmpty(TxtCaseId.Text))
             {
                 MessageBox.Show("請輸入單號");
@@ -85,6 +96,8 @@ namespace side
 
         private void BtnRegisterNum_Click(object sender, EventArgs e)
         {
+            InitConnectionString();
+
             if (string.IsNullOrEmpty(TxtRegistDate.Text) || !DateTime.TryParse(TxtRegistDate.Text, out DateTime _))
             {
                 MessageBox.Show("請輸入正確的日期");

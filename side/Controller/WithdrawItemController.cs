@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DAO;
+using side.Interface;
 using System;
 
 namespace side.Controller
 {
-    public class WithdrawItemController
+    public class WithdrawItemController : IConnStrSingleton
     {
         private readonly WithdrawItemDAO _withdrawItemInstance = WithdrawItemDAO.GetInstance();
 
@@ -14,6 +15,15 @@ namespace side.Controller
         public static WithdrawItemController GetInstance()
         {
             return _instance;
+        }
+
+        /// <summary>
+        /// 設定資料庫連線字串。
+        /// </summary>
+        /// <param name="connectionString">與資料庫的連線字串。</param>
+        public void SetConnectionString(string connectionString)
+        {
+            _withdrawItemInstance._connectionString = connectionString;
         }
 
         public string GetNewCaseId()

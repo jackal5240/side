@@ -11,7 +11,7 @@ namespace side.DAO
     internal class WithdrawItemDAO
     {
         // 資料庫連接字串
-        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        public string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
 
         private static readonly WithdrawItemDAO _instance = new WithdrawItemDAO();
 

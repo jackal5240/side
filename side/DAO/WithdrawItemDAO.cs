@@ -10,12 +10,14 @@ namespace side.DAO
 {
     internal class WithdrawItemDAO
     {
-        // 資料庫連接字串
-        public string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        /// <summary>
+        /// 資料庫連接字串。
+        /// </summary>
+        public string ConnectionString { get; set; }
 
         private static readonly WithdrawItemDAO _instance = new WithdrawItemDAO();
 
-        private static readonly ImplmentSQL _sqlCommon = ImplmentSQL.getInstance();
+        private static readonly ImplmentSQL _sqlImp = ImplmentSQL.getInstance();
 
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace side.DAO
             }
 
             List<DataSet_WidthdrawItem> items = new List<DataSet_WidthdrawItem>();
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(_sqlImp.conn_str))
             {
                 if (conn.State != ConnectionState.Open)
                 {
@@ -97,10 +99,10 @@ namespace side.DAO
             DateTime durationEnd = new DateTime(dt.Year + (dt.Month == 12 ? 1 : 0), dt.Month + 1, 1);
 
             List<DataSet_WidthdrawItem> items = new List<DataSet_WidthdrawItem>();
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(_sqlImp.conn_str))
             {
-                _sqlCommon.conn_str = _connectionString;
-                var memberId = _sqlCommon.GetMemberShipID(conn, account);
+                //_sqlImp.conn_str = ConnectionString;
+                var memberId = _sqlImp.GetMemberShipID(conn, account);
 
                 if (conn.State != ConnectionState.Open)
                 {
@@ -152,7 +154,7 @@ namespace side.DAO
 
         public void InitializeCaseId()
         {
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(_sqlImp.conn_str))
             {
                 try
                 {

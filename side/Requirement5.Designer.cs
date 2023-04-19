@@ -44,13 +44,15 @@
             this.BtnRegisterNum = new System.Windows.Forms.Button();
             this.NudRegisterNum = new System.Windows.Forms.NumericUpDown();
             this.TxtRegistDate = new System.Windows.Forms.MaskedTextBox();
+            this.TxtConnectionString = new System.Windows.Forms.TextBox();
+            this.LblConnectionString = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NudRegisterNum)).BeginInit();
             this.SuspendLayout();
             // 
             // LblMonth
             // 
             this.LblMonth.AutoSize = true;
-            this.LblMonth.Location = new System.Drawing.Point(39, 34);
+            this.LblMonth.Location = new System.Drawing.Point(39, 58);
             this.LblMonth.Name = "LblMonth";
             this.LblMonth.Size = new System.Drawing.Size(29, 12);
             this.LblMonth.TabIndex = 1;
@@ -58,7 +60,7 @@
             // 
             // BtnGetNewCaseId
             // 
-            this.BtnGetNewCaseId.Location = new System.Drawing.Point(361, 30);
+            this.BtnGetNewCaseId.Location = new System.Drawing.Point(361, 54);
             this.BtnGetNewCaseId.Name = "BtnGetNewCaseId";
             this.BtnGetNewCaseId.Size = new System.Drawing.Size(75, 23);
             this.BtnGetNewCaseId.TabIndex = 2;
@@ -68,7 +70,7 @@
             // 
             // TxtNewCaseId
             // 
-            this.TxtNewCaseId.Location = new System.Drawing.Point(361, 59);
+            this.TxtNewCaseId.Location = new System.Drawing.Point(361, 83);
             this.TxtNewCaseId.Name = "TxtNewCaseId";
             this.TxtNewCaseId.ReadOnly = true;
             this.TxtNewCaseId.Size = new System.Drawing.Size(257, 22);
@@ -76,7 +78,7 @@
             // 
             // BtnCopyCaseId
             // 
-            this.BtnCopyCaseId.Location = new System.Drawing.Point(361, 87);
+            this.BtnCopyCaseId.Location = new System.Drawing.Point(361, 111);
             this.BtnCopyCaseId.Name = "BtnCopyCaseId";
             this.BtnCopyCaseId.Size = new System.Drawing.Size(75, 23);
             this.BtnCopyCaseId.TabIndex = 4;
@@ -86,7 +88,7 @@
             // 
             // BtnQuery
             // 
-            this.BtnQuery.Location = new System.Drawing.Point(243, 31);
+            this.BtnQuery.Location = new System.Drawing.Point(243, 55);
             this.BtnQuery.Name = "BtnQuery";
             this.BtnQuery.Size = new System.Drawing.Size(75, 51);
             this.BtnQuery.TabIndex = 5;
@@ -96,7 +98,7 @@
             // 
             // TxtResult
             // 
-            this.TxtResult.Location = new System.Drawing.Point(41, 125);
+            this.TxtResult.Location = new System.Drawing.Point(41, 149);
             this.TxtResult.Multiline = true;
             this.TxtResult.Name = "TxtResult";
             this.TxtResult.ReadOnly = true;
@@ -106,7 +108,7 @@
             // LblAccount
             // 
             this.LblAccount.AutoSize = true;
-            this.LblAccount.Location = new System.Drawing.Point(39, 64);
+            this.LblAccount.Location = new System.Drawing.Point(39, 88);
             this.LblAccount.Name = "LblAccount";
             this.LblAccount.Size = new System.Drawing.Size(29, 12);
             this.LblAccount.TabIndex = 7;
@@ -114,7 +116,7 @@
             // 
             // TxtAccount
             // 
-            this.TxtAccount.Location = new System.Drawing.Point(74, 59);
+            this.TxtAccount.Location = new System.Drawing.Point(74, 83);
             this.TxtAccount.Name = "TxtAccount";
             this.TxtAccount.Size = new System.Drawing.Size(100, 22);
             this.TxtAccount.TabIndex = 8;
@@ -122,7 +124,7 @@
             // TxtMonth
             // 
             this.TxtMonth.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.TxtMonth.Location = new System.Drawing.Point(74, 31);
+            this.TxtMonth.Location = new System.Drawing.Point(74, 55);
             this.TxtMonth.Mask = "0000/00";
             this.TxtMonth.Name = "TxtMonth";
             this.TxtMonth.Size = new System.Drawing.Size(100, 22);
@@ -130,7 +132,7 @@
             // 
             // BtnETL
             // 
-            this.BtnETL.Location = new System.Drawing.Point(361, 125);
+            this.BtnETL.Location = new System.Drawing.Point(361, 149);
             this.BtnETL.Name = "BtnETL";
             this.BtnETL.Size = new System.Drawing.Size(75, 23);
             this.BtnETL.TabIndex = 10;
@@ -141,7 +143,7 @@
             // LblCaseId
             // 
             this.LblCaseId.AutoSize = true;
-            this.LblCaseId.Location = new System.Drawing.Point(39, 92);
+            this.LblCaseId.Location = new System.Drawing.Point(39, 116);
             this.LblCaseId.Name = "LblCaseId";
             this.LblCaseId.Size = new System.Drawing.Size(29, 12);
             this.LblCaseId.TabIndex = 11;
@@ -149,14 +151,14 @@
             // 
             // TxtCaseId
             // 
-            this.TxtCaseId.Location = new System.Drawing.Point(74, 88);
+            this.TxtCaseId.Location = new System.Drawing.Point(74, 112);
             this.TxtCaseId.Name = "TxtCaseId";
             this.TxtCaseId.Size = new System.Drawing.Size(138, 22);
             this.TxtCaseId.TabIndex = 12;
             // 
             // BtnQryByCaseId
             // 
-            this.BtnQryByCaseId.Location = new System.Drawing.Point(243, 88);
+            this.BtnQryByCaseId.Location = new System.Drawing.Point(243, 112);
             this.BtnQryByCaseId.Name = "BtnQryByCaseId";
             this.BtnQryByCaseId.Size = new System.Drawing.Size(75, 23);
             this.BtnQryByCaseId.TabIndex = 13;
@@ -166,7 +168,7 @@
             // 
             // BtnRegisterNum
             // 
-            this.BtnRegisterNum.Location = new System.Drawing.Point(361, 220);
+            this.BtnRegisterNum.Location = new System.Drawing.Point(361, 244);
             this.BtnRegisterNum.Name = "BtnRegisterNum";
             this.BtnRegisterNum.Size = new System.Drawing.Size(75, 23);
             this.BtnRegisterNum.TabIndex = 14;
@@ -176,7 +178,7 @@
             // 
             // NudRegisterNum
             // 
-            this.NudRegisterNum.Location = new System.Drawing.Point(361, 249);
+            this.NudRegisterNum.Location = new System.Drawing.Point(361, 273);
             this.NudRegisterNum.Maximum = new decimal(new int[] {
             1316134911,
             2328,
@@ -190,17 +192,35 @@
             // TxtRegistDate
             // 
             this.TxtRegistDate.ImeMode = System.Windows.Forms.ImeMode.Alpha;
-            this.TxtRegistDate.Location = new System.Drawing.Point(361, 192);
+            this.TxtRegistDate.Location = new System.Drawing.Point(361, 216);
             this.TxtRegistDate.Mask = "0000/00/00";
             this.TxtRegistDate.Name = "TxtRegistDate";
             this.TxtRegistDate.Size = new System.Drawing.Size(100, 22);
             this.TxtRegistDate.TabIndex = 16;
             // 
+            // TxtConnectionString
+            // 
+            this.TxtConnectionString.Location = new System.Drawing.Point(96, 12);
+            this.TxtConnectionString.Name = "TxtConnectionString";
+            this.TxtConnectionString.Size = new System.Drawing.Size(544, 22);
+            this.TxtConnectionString.TabIndex = 17;
+            // 
+            // LblConnectionString
+            // 
+            this.LblConnectionString.AutoSize = true;
+            this.LblConnectionString.Location = new System.Drawing.Point(39, 15);
+            this.LblConnectionString.Name = "LblConnectionString";
+            this.LblConnectionString.Size = new System.Drawing.Size(53, 12);
+            this.LblConnectionString.TabIndex = 18;
+            this.LblConnectionString.Text = "連線字串";
+            // 
             // Requirement5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 450);
+            this.ClientSize = new System.Drawing.Size(700, 464);
+            this.Controls.Add(this.LblConnectionString);
+            this.Controls.Add(this.TxtConnectionString);
             this.Controls.Add(this.TxtRegistDate);
             this.Controls.Add(this.NudRegisterNum);
             this.Controls.Add(this.BtnRegisterNum);
@@ -242,5 +262,7 @@
         private System.Windows.Forms.Button BtnRegisterNum;
         private System.Windows.Forms.NumericUpDown NudRegisterNum;
         private System.Windows.Forms.MaskedTextBox TxtRegistDate;
+        private System.Windows.Forms.TextBox TxtConnectionString;
+        private System.Windows.Forms.Label LblConnectionString;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NiteenNity_Case_SQL_API.Mode.Abstract;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DAO;
 using side.Interface;
@@ -17,13 +18,17 @@ namespace side.Controller
             return _instance;
         }
 
-        /// <summary>
-        /// 設定資料庫連線字串。
-        /// </summary>
-        /// <param name="connectionString">與資料庫的連線字串。</param>
-        public void SetConnectionString(string connectionString)
+        /// <inheritdoc/>
+        public void SetConnectionString()
         {
-            _withdrawItemInstance._connectionString = connectionString;
+            ImplmentSQL _sqlImp = ImplmentSQL.getInstance();
+            if (!string.IsNullOrEmpty(_sqlImp.conn_str))
+            {
+                _withdrawItemInstance.ConnectionString = _sqlImp.conn_str;
+                return;
+            }
+
+            throw new Exception("尚未設定連線字串初始化");
         }
 
         public string GetNewCaseId()

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DAO;
+using side.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace side.Controller
 {
-    public class GameUserItemController
+    public class GameUserItemController : IConnStrSingleton
     {
         private readonly GameUserItemDAO _gameUserItemInstance = GameUserItemDAO.GetInstance();
 
@@ -19,6 +20,15 @@ namespace side.Controller
         public static GameUserItemController GetInstance()
         {
             return _instance;
+        }
+
+        /// <summary>
+        /// 設定資料庫連線字串。
+        /// </summary>
+        /// <param name="connectionString">與資料庫的連線字串。</param>
+        public void SetConnectionString(string connectionString)
+        {
+            _gameUserItemInstance._connectionString = connectionString;
         }
 
         /// <summary>

@@ -1,16 +1,8 @@
-﻿using NiteenNity_Case_SQL_API.Mode.Abstract;
-using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
+﻿using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DataSet;
 using side.Services;
-using side.ServicesImpl;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace side.Controller
 {

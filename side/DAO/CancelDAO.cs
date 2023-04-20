@@ -145,13 +145,13 @@ namespace side.DAO
                 conn.Close();
                 reader.Close();
 
-                if (string.IsNullOrEmpty(remark) || string.IsNullOrEmpty(value) || string.IsNullOrEmpty(ratio) || string.IsNullOrEmpty(fee))
+                if (!string.IsNullOrEmpty(remark) || !string.IsNullOrEmpty(value) || !string.IsNullOrEmpty(ratio) || !string.IsNullOrEmpty(fee))
                 {
-                    return "1," + remark + "," + value + "," + ratio + "," + fee;
+                    return "0";
                 }
                 else
                 {
-                    return "0";
+                    return "1," + remark + "," + value + "," + ratio + "," + fee;
                 }
             }
         }

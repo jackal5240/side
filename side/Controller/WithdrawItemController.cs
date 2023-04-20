@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
+using NiteenNity_Case_SQL_API.Mode.Abstract;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
 using side.DAO;
+using side.Interface;
 using System;
 
 namespace side.Controller
 {
-    public class WithdrawItemController
+    public class WithdrawItemController : IConnStrSingleton
     {
         private readonly WithdrawItemDAO _withdrawItemInstance = WithdrawItemDAO.GetInstance();
 
@@ -14,6 +16,19 @@ namespace side.Controller
         public static WithdrawItemController GetInstance()
         {
             return _instance;
+        }
+
+        /// <inheritdoc/>
+        public void SetConnectionString()
+        {
+            ImplmentSQL _sqlImp = ImplmentSQL.getInstance();
+            if (!string.IsNullOrEmpty(_sqlImp.conn_str))
+            {
+                _withdrawItemInstance.ConnectionString = _sqlImp.conn_str;
+                return;
+            }
+
+            throw new Exception("尚未設定連線字串初始化");
         }
 
         public string GetNewCaseId()

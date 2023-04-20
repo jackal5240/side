@@ -1,4 +1,3 @@
-﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NiteenNity_Case_SQL_API.Mode.Abstract;
 using NiteenNity_Case_SQL_API.Mode.DataSet.DAO;
@@ -7,7 +6,6 @@ using side.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Principal;
@@ -21,7 +19,7 @@ namespace side.DAO
     internal class CancelDAO
     {
         // 資料庫連接字串
-        private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        //private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
         ImplmentSQL sql = ImplmentSQL.getInstance();
         private static CancelDAO instance = new CancelDAO();
         public static CancelDAO getInstance()

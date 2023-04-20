@@ -65,6 +65,7 @@
     <Compile Include="DataSet\DataSet_WidthdrawItem.cs" />
     <Compile Include="DataSet\DataSet_WithdrawDetail.cs" />
     <Compile Include="DataSet\DataSet_WithdrawItemQuerying.cs" />
+    <Compile Include="Interface\IConnStrSingleton.cs" />
     <Compile Include="Requirement4.cs">
       <SubType>Form</SubType>
     </Compile>

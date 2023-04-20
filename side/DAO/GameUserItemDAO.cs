@@ -7,8 +7,10 @@ namespace side.DAO
 {
     internal class GameUserItemDAO
     {
-        // 資料庫連接字串
-        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        /// <summary>
+        /// 資料庫連接字串。
+        /// </summary>
+        public string ConnectionString { get; set; }
 
         private static readonly GameUserItemDAO _instance = new GameUserItemDAO();
 
@@ -31,7 +33,7 @@ namespace side.DAO
         {
             int result = 0;
 
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 if (conn.State != ConnectionState.Open)
                 {

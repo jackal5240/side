@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace side.Controller
 {
-    internal class CancelController
+    public class CancelController
     {
         CancelServices cancelServices = CancelServices.getInstance();
         private static CancelController instance = new CancelController();
@@ -14,7 +14,7 @@ namespace side.Controller
         {
             return instance;
         }
-        internal SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule, string account, string editor)
+        public SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule, string account, string editor)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult
             {

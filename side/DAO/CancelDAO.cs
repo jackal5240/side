@@ -16,7 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace side.DAO
 {
-    internal class CancelDAO
+    public class CancelDAO
     {
         // 資料庫連接字串
         //private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
@@ -26,7 +26,7 @@ namespace side.DAO
         {
             return instance;
         }
-        internal string getHasBankType(string account)
+        public string getHasBankType(string account)
         {
             using (SqlConnection conn = new SqlConnection(sql.conn_str))
             //using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -54,7 +54,7 @@ namespace side.DAO
                 return bankType;
             }
         }
-        internal string getFeeCategory(string bankType)
+        public string getFeeCategory(string bankType)
         {
             using (SqlConnection conn = new SqlConnection(sql.conn_str))
             //using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -80,7 +80,7 @@ namespace side.DAO
                 return ratio + "," + fee;
             }
         }
-        internal string getMemberShip2UserIdAndValue(string account)
+        public string getMemberShip2UserIdAndValue(string account)
         {
             using (SqlConnection conn = new SqlConnection(sql.conn_str))
             //using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -111,7 +111,7 @@ namespace side.DAO
                 return Convert.ToString(id) + "," + value;
             }
         }
-        internal string getWallet_WithdrawItem_Remark(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
+        public string getWallet_WithdrawItem_Remark(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
             using (SqlConnection conn = new SqlConnection(sql.conn_str))
             //using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -148,7 +148,7 @@ namespace side.DAO
                 return "1," + remark + "," + value + "," + ratio + "," + fee;
             }
         }
-        internal int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
+        public int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
             int ans = 0;
             using (SqlConnection conn = new SqlConnection(sql.conn_str))
@@ -177,7 +177,7 @@ namespace side.DAO
                 return ans;
             }
         }
-        internal int CancelApplyValue_UpdateWallet_WalletItem(int memberId, string value)
+        public int CancelApplyValue_UpdateWallet_WalletItem(int memberId, string value)
         {
             int ans = 0;
             using (SqlConnection conn = new SqlConnection(sql.conn_str))

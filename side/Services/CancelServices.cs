@@ -17,7 +17,7 @@ using System.Runtime.Remoting.Messaging;
 
 namespace side.Services
 {
-    internal class CancelServices : ICancelServices
+    public class CancelServices : ICancelServices
     {
         CancelDAO cancelDAO = CancelDAO.getInstance();
         private static CancelServices instance = new CancelServices();

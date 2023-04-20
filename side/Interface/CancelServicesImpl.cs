@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace side.ServicesImpl
 {
-    internal interface ICancelServices
+    public interface ICancelServices
     {
         SQL_ExcuteResult getHasBankType(string account);
         string getFeeCategory(string bankType);

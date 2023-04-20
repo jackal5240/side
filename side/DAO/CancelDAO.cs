@@ -147,11 +147,11 @@ namespace side.DAO
 
                 if (!string.IsNullOrEmpty(remark) || !string.IsNullOrEmpty(value) || !string.IsNullOrEmpty(ratio) || !string.IsNullOrEmpty(fee))
                 {
-                    return "0";
+                    return "1," + remark + "," + value + "," + ratio + "," + fee;
                 }
                 else
                 {
-                    return "1," + remark + "," + value + "," + ratio + "," + fee;
+                    return "0";
                 }
             }
         }
@@ -168,7 +168,7 @@ namespace side.DAO
                     SqlCommand cmd = new SqlCommand("update bu_test.dbo.Wallet_WithdrawItem " +
                         "set State = '已取消', UpdateTime = GETDATE() " +
                         ", Available = Value - Value * CAST(" + withdrawFeeRatio + " AS DECIMAL(18, 2)) / 100 - CAST(" + withdrawFee + " AS DECIMAL(18, 2)) " +
-                        "where memberId = @memberId AND State = '未處理'" +
+                        "where memberId = @memberId AND State = '已處理'" +
                         "AND ( CreateTime between '" + startTime + "'" +
                         "and '" + endTime + "' ) " +
                         ";", conn);
@@ -265,7 +265,7 @@ namespace side.DAO
             // 拿到 MemberId和 原始金額
             SqlCommand cmd = new SqlCommand("SELECT COUNT(1) AS count " +
                 "FROM bu_test.dbo.Wallet_WithdrawItem " +
-                "where memberId = @memberId AND State = '未處理'" +
+                "where memberId = @memberId AND State = '已處理'" +
                         "AND ( CreateTime between '" + startTime + "'" +
                         "and '" + endTime + "' ) " +
                         ";", conn);

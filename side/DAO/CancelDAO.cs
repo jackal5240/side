@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace side.DAO
@@ -20,22 +21,76 @@ namespace side.DAO
     internal class CancelDAO
     {
         // 資料庫連接字串
-        //private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        private string _connectionString = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
         ImplmentSQL sql = ImplmentSQL.getInstance();
         private static CancelDAO instance = new CancelDAO();
         public static CancelDAO getInstance()
         {
             return instance;
         }
-        internal string getMemberShip2UserIdAndValue(string account)
+        internal string getHasBankType(string account)
         {
-            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 拿到 MemberId和 原始金額 和 比例手續費，固定手續費
-                SqlCommand cmd = new SqlCommand("SELECT A.Id, B.Value, C.WithdrawFeeRatio, C.WithdrawFee " +
+                SqlCommand cmd = new SqlCommand("SELECT distinct SUBSTRING(D.Remark, CHARINDEX('銀行：', D.Remark)+3, CHARINDEX('<br/>', D.Remark)-(CHARINDEX('銀行：', D.Remark)+3)) AS bankType " +
+                    "FROM bu_test.dbo.MemberShip2_User A " +
+                    "LEFT JOIN bu_test.dbo.Wallet_WithdrawItem D ON D.MemberId = A.Id " +
+                    "WHERE A.Account = @account", conn);
+
+                // 將資料塞入 SQL 指令中
+                cmd.Parameters.AddWithValue("@account", account);
+
+                // 開啟資料庫連線，並執行 SQL 指令
+                conn.Open();
+                string bankType = "";
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    bankType = Convert.ToString(reader["bankType"]);
+                }
+                conn.Close();
+                reader.Close();
+
+                return bankType;
+            }
+        }
+        internal string getFeeCategory(string bankType)
+        {
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                // 拿到 比例手續費，固定手續費
+                SqlCommand cmd = new SqlCommand("SELECT WithdrawFeeRatio, WithdrawFee " +
+                    "FROM bu_test.dbo.Config_SystemConfigItem " +
+                    "WHERE BankType like '%" + bankType + "%'", conn);
+
+                // 開啟資料庫連線，並執行 SQL 指令
+                conn.Open();
+                string ratio = "";
+                string fee = "";
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ratio = Convert.ToString(reader["WithdrawFeeRatio"]);
+                    fee = Convert.ToString(reader["WithdrawFee"]);
+                }
+                conn.Close();
+                reader.Close();
+
+                return ratio + "," + fee;
+            }
+        }
+        internal string getMemberShip2UserIdAndValue(string account)
+        {
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                // 拿到 MemberId和 原始金額 和 比例手續費，固定手續費
+                SqlCommand cmd = new SqlCommand("SELECT A.Id, B.Value " +
                     "FROM bu_test.dbo.MemberShip2_User A " +
                     "LEFT JOIN bu_test.dbo.Wallet_WalletItem B ON A.Id = B.MemberId " +
-                    "LEFT JOIN bu_test.dbo.Config_SystemConfigItem C ON A.Id = C.Id " +
                     "WHERE A.Account = @account", conn);
 
                 // 將資料塞入 SQL 指令中
@@ -45,33 +100,23 @@ namespace side.DAO
                 conn.Open();
                 int id = -1;
                 string value = "-1";
-                string withdrawFeeRatio = "0";
-                string withdrawFee = "0";
-                int count = cmd.ExecuteNonQuery();
-                if (count == 1)
-                {
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        id = Convert.ToInt32(reader["Id"]);
-                        value = Convert.ToString(reader["Value"]);
-                        withdrawFeeRatio = Convert.ToString(reader["WithdrawFeeRatio"]);
-                        withdrawFee = Convert.ToString(reader["WithdrawFee"]);
-                    }
-                    conn.Close();
-                    reader.Close();
 
-                    return Convert.ToString(id) + "," + value + "," + withdrawFeeRatio + "," + withdrawFee;
-                }
-                else
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    return Convert.ToString(count);
+                    id = Convert.ToInt32(reader["Id"]);
+                    value = Convert.ToString(reader["Value"]);
                 }
+                conn.Close();
+                reader.Close();
+
+                return Convert.ToString(id) + "," + value;
             }
         }
         internal string getWallet_WithdrawItem_Remark(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
-            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 拿到 Remark
                 SqlCommand cmd = new SqlCommand("SELECT Value, FeeRatio, Fee1, Remark " +
@@ -108,7 +153,8 @@ namespace side.DAO
         internal int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
             int ans = 0;
-            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 ans = judge(conn, memberId, startTime, endTime);
                 if (ans == 1)
@@ -136,7 +182,8 @@ namespace side.DAO
         internal int CancelApplyValue_UpdateWallet_WalletItem(int memberId, string value)
         {
             int ans = 0;
-            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 ans = judge(conn, memberId);
                 if (ans == 1)
@@ -161,7 +208,8 @@ namespace side.DAO
         public int CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string value, string startTime, string endTime, string editor, string withdrawFeeRatio, string withdrawFee, string remark)
         {
             int ans = 0;
-            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 記錄一筆 取消提領 [Wallet_WalletRecordItem]
                 SqlCommand cmd = new SqlCommand("INSERT INTO bu_test.dbo.Wallet_WalletRecordItem " +

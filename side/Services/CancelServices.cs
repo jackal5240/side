@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using side.Controller;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace side.Services
 {
@@ -23,6 +24,28 @@ namespace side.Services
         public static CancelServices getInstance()
         {
             return instance;
+        }
+        public SQL_ExcuteResult getHasBankType(string account)
+        {
+            SQL_ExcuteResult result = new SQL_ExcuteResult();
+            string bankType = cancelDAO.getHasBankType(account);
+            if (string.IsNullOrEmpty(bankType))
+            {
+                result.isSuccess = false;
+                result.FeedbackMsg = bankType;
+                result.ReturnDataJson = "沒有合作銀行 - " + bankType;
+            }
+            else
+            {
+                result.isSuccess = true;
+                result.FeedbackMsg = bankType;
+                result.ReturnDataJson = "有合作銀行 - " + bankType;
+            }
+            return result;
+        }
+        public string getFeeCategory(string bankType)
+        {
+            return cancelDAO.getFeeCategory(bankType);
         }
         public string getMemberShip2UserIdAndValue(string account)
         {

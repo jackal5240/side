@@ -10,6 +10,8 @@ namespace side.ServicesImpl
 {
     internal interface ICancelServices
     {
+        SQL_ExcuteResult getHasBankType(string account);
+        string getFeeCategory(string bankType);
         string getMemberShip2UserIdAndValue(string account);
         string getWallet_WithdrawItem_Remark(int memberId, string date, string withdrawFeeRatio, string withdrawFee);
         SQL_ExcuteResult CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string oldValue, string increment, string date, string withdrawFeeRatio, string withdrawFee);

@@ -43,32 +43,35 @@ namespace side.Controller
                     // 銀行：004-台灣銀行<br/>分行：123456<br/>戶名：1231<br/>帳號：123456564654<br/>虛擬錢包地址：asdasdassdad
                     // 提領至 004 - 台灣銀行 - 123456 123456564654 < br /> 提領額度1,000，手續費率0 % 0，固定手續費0，實際提領額度1,000 < br />
                     string test = cancelServices.getWallet_WithdrawItem_Remark(userId, dataSet_CancelApplyVaule.submissionTime, withdrawFeeRatio, withdrawFee);
-                    // 銀行
-                    string bank = Regex.Split(Regex.Split(test, "：")[1], "<br/>")[0];
-                    // 分行
-                    string branch = Regex.Split(Regex.Split(test, "：")[2], "<br/>")[0];
-                    // 戶名
-                    //string accountName = Regex.Split(Regex.Split(test, "：")[3], "<br/>")[0];
-                    // 帳號
-                    string accountNumber = Regex.Split(Regex.Split(test, "：")[4], "<br/>")[0];
-                    // 提領額度
-                    string value = Regex.Split(test, ",")[2];
-                    // 手續費率
-                    string ratio = Regex.Split(test, ",")[3];
-                    // 固定手續費
-                    string fee = Regex.Split(test, ",")[4];
-                    string remark = "提領至 " + bank + "-" + branch + " " + accountNumber + "<br/>提領額度" + value + "，手續費率" + ratio + "% " + Convert.ToString(Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100) + "，固定手續費" + fee + "，實際提領額度" + Convert.ToString(Convert.ToDecimal(value) - Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100 - Convert.ToDecimal(fee)) + "<br/>";
-
-                    // 更新 提領紀錄
-                    result = cancelServices.CancelApplyValue_UpdateWallet_WithdrawItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, withdrawFeeRatio, withdrawFee);
-
-                    if (result.isSuccess)
+                    if (!"0".Equals(test))
                     {
-                        // 更新 原始金額
-                        result = cancelServices.CancelApplyValue_UpdateWallet_WalletItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, withdrawFeeRatio, withdrawFee);
+                        // 銀行
+                        string bank = Regex.Split(Regex.Split(test, "：")[1], "<br/>")[0];
+                        // 分行
+                        string branch = Regex.Split(Regex.Split(test, "：")[2], "<br/>")[0];
+                        // 戶名
+                        //string accountName = Regex.Split(Regex.Split(test, "：")[3], "<br/>")[0];
+                        // 帳號
+                        string accountNumber = Regex.Split(Regex.Split(test, "：")[4], "<br/>")[0];
+                        // 提領額度
+                        string value = Regex.Split(test, ",")[2];
+                        // 手續費率
+                        string ratio = Regex.Split(test, ",")[3];
+                        // 固定手續費
+                        string fee = Regex.Split(test, ",")[4];
+                        string remark = "提領至 " + bank + "-" + branch + " " + accountNumber + "<br/>提領額度" + value + "，手續費率" + ratio + "% " + Convert.ToString(Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100) + "，固定手續費" + fee + "，實際提領額度" + Convert.ToString(Convert.ToDecimal(value) - Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100 - Convert.ToDecimal(fee)) + "<br/>";
 
-                        // 新增 歷史紀錄
-                        result = cancelServices.CancelApplyValue_InsertWallet_WalletRecordItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, editor, withdrawFeeRatio, withdrawFee, remark);
+                        // 更新 提領紀錄
+                        result = cancelServices.CancelApplyValue_UpdateWallet_WithdrawItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, withdrawFeeRatio, withdrawFee);
+
+                        if (result.isSuccess)
+                        {
+                            // 更新 原始金額
+                            result = cancelServices.CancelApplyValue_UpdateWallet_WalletItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, withdrawFeeRatio, withdrawFee);
+
+                            // 新增 歷史紀錄
+                            result = cancelServices.CancelApplyValue_InsertWallet_WalletRecordItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, editor, withdrawFeeRatio, withdrawFee, remark);
+                        }
                     }
                 }
             }

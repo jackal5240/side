@@ -145,7 +145,14 @@ namespace side.DAO
                 conn.Close();
                 reader.Close();
 
-                return "1," + remark + "," + value + "," + ratio + "," + fee;
+                if (string.IsNullOrEmpty(remark) || string.IsNullOrEmpty(value) || string.IsNullOrEmpty(ratio) || string.IsNullOrEmpty(fee))
+                {
+                    return "1," + remark + "," + value + "," + ratio + "," + fee;
+                }
+                else
+                {
+                    return "0";
+                }
             }
         }
         public int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)

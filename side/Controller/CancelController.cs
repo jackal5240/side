@@ -59,7 +59,8 @@ namespace side.Controller
                         string ratio = Regex.Split(test, ",")[3];
                         // 固定手續費
                         string fee = Regex.Split(test, ",")[4];
-                        string remark = "提領至 " + bank + "-" + branch + " " + accountNumber + "<br/>提領額度" + value + "，手續費率" + ratio + "% " + Convert.ToString(Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100) + "，固定手續費" + fee + "，實際提領額度" + Convert.ToString(Convert.ToDecimal(value) - Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100 - Convert.ToDecimal(fee)) + "<br/>";
+                        //string remark = "提領至 " + bank + "-" + branch + " " + accountNumber + "<br/>提領額度" + value + "，手續費率" + ratio + "% " + Convert.ToString(Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100) + "，固定手續費" + fee + "，實際提領額度" + Convert.ToString(Convert.ToDecimal(value) - Convert.ToDecimal(value) * Convert.ToDecimal(ratio) / 100 - Convert.ToDecimal(fee)) + "<br/>";
+                        string remark = "【提領取消】" + dataSet_CancelApplyVaule.submissionTime.Substring(0, 19) + "申請提領-" + Convert.ToString(value) + "取消返還";
 
                         // 更新 提領紀錄
                         result = cancelServices.CancelApplyValue_UpdateWallet_WithdrawItem(userId, oldValue, dataSet_CancelApplyVaule.withdrawData.value, dataSet_CancelApplyVaule.submissionTime, withdrawFeeRatio, withdrawFee);

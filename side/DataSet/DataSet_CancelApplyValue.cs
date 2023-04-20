@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace side.DataSet
 {
-    internal class DataSet_CancelApplyValue
+    public class DataSet_CancelApplyValue
     {
         // 顧客 ID
         public int memberId { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace side.DataSet
 {
-    internal class DataSet_WithdrawDetail
+    public class DataSet_WithdrawDetail
     {
         // 顧客 ID
         public int memberId { get; set; }

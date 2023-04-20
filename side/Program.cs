@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace side
 {
-    internal static class Program
+    public static class Program
     {
         /// <summary>
         /// 應用程式的主要進入點。

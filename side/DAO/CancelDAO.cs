@@ -119,7 +119,7 @@ namespace side.DAO
                 // 拿到 Remark
                 SqlCommand cmd = new SqlCommand("SELECT Value, FeeRatio, Fee1, Remark " +
                     "FROM bu_test.dbo.Wallet_WithdrawItem " +
-                    "where memberId = @memberId AND State = '未處理'" +
+                    "where memberId = @memberId AND State = '已處理'" +
                         "AND ( CreateTime between '" + startTime + "'" +
                         "and '" + endTime + "' ) " +
                         ";", conn);

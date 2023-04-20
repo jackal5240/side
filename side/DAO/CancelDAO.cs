@@ -28,8 +28,8 @@ namespace side.DAO
         }
         internal string getHasBankType(string account)
         {
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 拿到 MemberId和 原始金額 和 比例手續費，固定手續費
                 SqlCommand cmd = new SqlCommand("SELECT distinct SUBSTRING(D.Remark, CHARINDEX('銀行：', D.Remark)+3, CHARINDEX('<br/>', D.Remark)-(CHARINDEX('銀行：', D.Remark)+3)) AS bankType " +
@@ -56,8 +56,8 @@ namespace side.DAO
         }
         internal string getFeeCategory(string bankType)
         {
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 拿到 比例手續費，固定手續費
                 SqlCommand cmd = new SqlCommand("SELECT WithdrawFeeRatio, WithdrawFee " +
@@ -82,8 +82,8 @@ namespace side.DAO
         }
         internal string getMemberShip2UserIdAndValue(string account)
         {
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 拿到 MemberId和 原始金額 和 比例手續費，固定手續費
                 SqlCommand cmd = new SqlCommand("SELECT A.Id, B.Value " +
@@ -113,8 +113,8 @@ namespace side.DAO
         }
         internal string getWallet_WithdrawItem_Remark(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 拿到 Remark
                 SqlCommand cmd = new SqlCommand("SELECT Value, FeeRatio, Fee1, Remark " +
@@ -151,8 +151,8 @@ namespace side.DAO
         internal int CancelApplyValue_UpdateWallet_WithdrawItem(int memberId, string startTime, string endTime, string withdrawFeeRatio, string withdrawFee)
         {
             int ans = 0;
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 ans = judge(conn, memberId, startTime, endTime);
                 if (ans == 1)
@@ -180,8 +180,8 @@ namespace side.DAO
         internal int CancelApplyValue_UpdateWallet_WalletItem(int memberId, string value)
         {
             int ans = 0;
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 ans = judge(conn, memberId);
                 if (ans == 1)
@@ -206,8 +206,8 @@ namespace side.DAO
         public int CancelApplyValue_InsertWallet_WalletRecordItem(int memberId, string value, string startTime, string endTime, string editor, string withdrawFeeRatio, string withdrawFee, string remark)
         {
             int ans = 0;
-            //using (SqlConnection conn = new SqlConnection(sql.conn_str))
-            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlConnection conn = new SqlConnection(sql.conn_str))
+            //using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 // 記錄一筆 取消提領 [Wallet_WalletRecordItem]
                 SqlCommand cmd = new SqlCommand("INSERT INTO bu_test.dbo.Wallet_WalletRecordItem " +

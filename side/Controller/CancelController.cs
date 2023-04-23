@@ -14,6 +14,11 @@ namespace side.Controller
         {
             return instance;
         }
+        /*
+         * DataSet_CancelApplyValue 必填
+         * account 遊戲帳號
+         * editor 是誰提出【提款取消】的編輯者
+         */
         public SQL_ExcuteResult CancelApplyValue(DataSet_CancelApplyValue dataSet_CancelApplyVaule, string account, string editor)
         {
             SQL_ExcuteResult result = new SQL_ExcuteResult

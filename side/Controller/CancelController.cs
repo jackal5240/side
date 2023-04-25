@@ -81,7 +81,6 @@ namespace side.Controller
                     }
                 }
             }
-            
             return result;
         }
         

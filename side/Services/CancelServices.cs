@@ -35,6 +35,10 @@ namespace side.Services
                 result.FeedbackMsg = bankType;
                 result.ReturnDataJson = "沒有合作銀行 - " + bankType;
             }
+            else
+            {
+                result.isSuccess = true;
+            }
             return result;
         }
         public string getFeeCategory(string bankType)

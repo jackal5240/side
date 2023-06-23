@@ -13,6 +13,7 @@ namespace side.DataSet
         public decimal Fee1 { get; set; }
         public decimal Fee2 { get; set; }
         public decimal Available { get; set; }
+        public string State { get; set; }
         public DateTime UpdateTime { get; set; }
         public DateTime CreateTime { get; set; }
     }

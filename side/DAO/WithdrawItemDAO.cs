@@ -72,6 +72,7 @@ namespace side.DAO
                             Fee1 = Convert.ToDecimal(reader["Fee1"]),
                             Fee2 = Convert.ToDecimal(reader["Fee2"]),
                             Available = Convert.ToDecimal(reader["Available"]),
+                            State = $"{reader["State"]}",
                             UpdateTime = Convert.ToDateTime(reader["UpdateTime"]),
                             CreateTime = Convert.ToDateTime(reader["CreateTime"]),
                         });
@@ -136,6 +137,7 @@ namespace side.DAO
                             Fee1 = Convert.ToDecimal(reader["Fee1"]),
                             Fee2 = Convert.ToDecimal(reader["Fee2"]),
                             Available = Convert.ToDecimal(reader["Available"]),
+                            State = $"{reader["State"]}",
                             UpdateTime = Convert.ToDateTime(reader["UpdateTime"]),
                             CreateTime = Convert.ToDateTime(reader["CreateTime"]),
                         });
